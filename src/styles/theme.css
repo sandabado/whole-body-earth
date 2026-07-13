@@ -1,0 +1,23 @@
+:root {
+  --void: #050505;
+  --carbon: #0a0a0f;
+  --steel: #12121a;
+  --mercury: #2a2a38;
+  --plasma: #b026ff;
+  --flux: #00ffc2;
+  --halo: #ffd700;
+  --bone: #ededed;
+  --ghost: #8888a0;
+  --water: #2ba8a0;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-body: "Inter", sans-serif;
+
+  --radius: 2px;
+  --border-solid: 3px;
+  --max-width: 1200px;
+
+  --scanline-opacity: 0.03;
+  --grid-color: rgba(176, 38, 255, 0.04);
+}
