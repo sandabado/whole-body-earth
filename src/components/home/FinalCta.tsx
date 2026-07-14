@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden px-6 py-24 md:py-32">
+    <section id="partnership" className="relative overflow-hidden px-6 py-24 md:py-32">
       <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(43,168,160,0.16),transparent_52%)]" />
       <div className="relative mx-auto max-w-3xl text-center">
         <p className="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-plasma">Built for the long work</p>

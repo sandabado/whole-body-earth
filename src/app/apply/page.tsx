@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -91,7 +92,7 @@ export default function ApplyPage() {
           <div className="text-6xl">🍀</div>
           <h1 className="font-display text-3xl font-bold text-plasma">Application Received</h1>
           <p className="leading-relaxed text-ghost">We review every submission within 14 days. If your work carries the frequency, we’ll reach out with a link for a discovery call.</p>
-          <Button asChild><a href="/">Return Home</a></Button>
+          <Button asChild><Link href="/">Return Home</Link></Button>
         </Card>
       </div>
     );

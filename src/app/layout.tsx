@@ -21,21 +21,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Whole Body Studios — Infrastructure, Not a Label.",
+  metadataBase: new URL("https://wholebody.earth"),
+  title: "Whole Body Earth — Five Pillars. One Whole Body.",
   description:
-    "Production, distribution, and sync licensing for artists who retain everything. We earn on services rendered — never on ownership. The artist eats first. Always.",
+    "A network for sovereign creators. Five pillars, one living system.",
   keywords: [
-    "music studio",
-    "artist partnership",
-    "sync licensing",
-    "distribution",
-    "Feed First",
+    "Whole Body Earth",
+    "Quincunx",
+    "sovereign creators",
+    "creative practice",
+    "Whole Body Studios",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Whole Body Studios",
-    description: "Infrastructure, Not a Label. Artist-owned. Zero extraction.",
-    url: "https://wholebody.studios",
-    siteName: "Whole Body Studios",
+    title: "Whole Body Earth",
+    description: "Five pillars. One whole body. A network for sovereign creators.",
+    url: "https://wholebody.earth",
+    siteName: "Whole Body Earth",
     type: "website",
   },
 };

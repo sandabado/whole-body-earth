@@ -1,148 +1,110 @@
-import Image from "next/image";
 import Link from "next/link";
-import {
-  ArtworkTile,
-  ConstellationNav,
-  FinalCta,
-  MetricGrid,
-  ProductionTicker,
-  SectionHeading,
-} from "@/components/home";
-import { FeedFirstBlock } from "@/components/sections/FeedFirstBlock";
-import { IcosahedronLayer } from "@/components/sections/IcosahedronLayer";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+import type { CSSProperties } from "react";
+import { HomePlatonicLayer } from "@/components/home/HomePlatonicLayer";
 
-const METRICS = [
-  { value: "100%", label: "Artist-owned", detail: "Masters, publishing, and IP stay with the artist." },
-  { value: "12%", label: "Distribution fee", detail: "A transparent service fee — never a rights grab." },
-  { value: "0", label: "Recoupment traps", detail: "No hidden debt tied to the work you make." },
-  { value: "∞", label: "Creative control", detail: "The artist remains the final voice." },
-];
+const SECTION_SHELL = "relative flex min-h-[calc(100svh-7rem)] items-center overflow-hidden px-6 py-20 sm:py-24";
 
-const ROSTER = [
-  { title: "Sandābādo", subtitle: "Featured artist · ∞ Love", image: "/images/releases/sandabado-infinity-love.png", label: "Featured release" },
-  { title: "Sarah Veya", subtitle: "New work in development", label: "In development" },
-  { title: "Marcus Reed", subtitle: "Writing & pre-production", label: "In production" },
-  { title: "Living Earth", subtitle: "A collaborative compilation", label: "Project file" },
-];
+const PILLARS = [
+  { id: "presence", mark: "🜂", name: "Presence", body: "Physical body", element: "Fire", solid: "Tetrahedron", tone: "#d16b45", color: "text-fire", description: "Embodiment, voice, and the physical practice of arriving.", feature: { label: "The embodied voice", title: "Somatic practice for the signal you carry.", text: "Breath, grounding, vocal activation, and a return to the physical vessel." }, tagline: "The shape of ignition.", paragraphs: ["Presence is the physical pillar: breath, movement, voice, boundaries, and the grounded intelligence of the body.", "Start with what is here. Feel your feet. Let the body lead."] },
+  { id: "press", mark: "🜁", name: "Press", body: "Mental body", element: "Air", solid: "Octahedron", tone: "#d4af37", color: "text-press", description: "Publishing, communication, and a signal that carries.", feature: { label: "Signal architecture", title: "A practice for your message.", text: "Clarify the idea, edit the noise, and make the work easy to find." }, tagline: "The shape that carries.", paragraphs: ["Press is the mental pillar: writing, speaking, publishing, and shaping a signal that travels without losing its source.", "Your mind does not need more noise. It needs a clear channel."] },
+  { id: "studios", mark: "🜄", name: "Studios", body: "Emotional body", element: "Water", solid: "Icosahedron", tone: "#2ba8a0", color: "text-water", description: "Creative flow, emotional intelligence, and relational art.", feature: { label: "Emotional cartography", title: "Creative work that lets feeling move.", text: "Colour mapping, relational practice, free creation, and a path into flow." }, tagline: "The shape that remembers.", paragraphs: ["Studios is the emotional pillar: art, feeling, relationship, and the creative current that makes a life feel alive.", "Make room for the feeling. Then make something with it."] },
+  { id: "foundation", mark: "🜃", name: "Foundation", body: "Spiritual body", element: "Earth", solid: "Cube", tone: "#4a6741", color: "text-earth", description: "Structure, systems, ritual, and the architecture of legacy.", feature: { label: "The root practice", title: "Structure that can hold your work.", text: "Build rituals, map your systems, and create the conditions for a lasting legacy." }, tagline: "The shape that endures.", paragraphs: ["Foundation is the spiritual pillar: systems, ritual, roots, and the durable structures that allow meaningful work to remain.", "Without a container, even a true vision spills away."] },
+  { id: "guardian", mark: "☉", name: "Guardian", body: "Ethereal body", element: "Ether", solid: "Dodecahedron", tone: "#8f5bff", color: "text-guardian", description: "The central axis: synthesis, facilitation, and holding space.", feature: { label: "The Guardian’s circle", title: "Integration for those who hold the whole.", text: "Facilitation, pattern recognition, integration, and practices for a centered presence." }, tagline: "The shape that holds.", paragraphs: ["Guardian is the ethereal center. It appears when your four outer bodies are in uncommon balance and you are called to hold a whole pattern.", "The center does not dominate. It makes coherence possible."] },
+] as const;
 
-const RELEASES = [
-  { title: "∞ Love", subtitle: "Sandābādo · Album", image: "/images/releases/sandabado-infinity-love.png", label: "Featured" },
-  { title: "Living Earth Vol. 1", subtitle: "Various artists · Compilation", label: "In development" },
-  { title: "Memory EP", subtitle: "Sarah Veya · EP", label: "In production" },
-];
+export default function WholeBodyEarthHome() {
+  return <>
+    <HomePlatonicLayer />
+    <main id="main-content" className="relative z-10 isolate">
+      <div aria-hidden="true" className="home-gradient-flow pointer-events-none absolute inset-0 -z-10" />
 
-const STUDIO_SPACES = [
-  { title: "Desert Studio", subtitle: "Tracking · Morongo Valley, CA", image: "/images/studio/desert-session.png", label: "Field recording" },
-  { title: "Mix & Master", subtitle: "Stereo, spatial, and vinyl-ready masters", image: "/images/studio/objects-session.png", label: "Post-production" },
-  { title: "Film Unit", subtitle: "Music films, fieldwork, and visual direction", label: "Moving image" },
-];
-
-const ELEMENTS = [
-  { symbol: "🜂", label: "Presence", href: "https://wholebody.earth/pillars/presence" },
-  { symbol: "🜁", label: "Press", href: "https://wholebody.earth/pillars/press" },
-  { symbol: "🜄", label: "Studios", href: "/", active: true },
-  { symbol: "🜃", label: "Foundation", href: "https://wholebody.earth/pillars/foundation" },
-  { symbol: "⊙", label: "Guardian", href: "https://wholebody.earth/pillars/guardian" },
-];
-
-export default function Home() {
-  return (
-    <>
-      <IcosahedronLayer opacity={0.13} />
-
-      <main className="relative z-10 overflow-hidden">
-        <section className="border-b border-mercury px-6 pt-14 pb-20 md:pt-20 md:pb-28">
-          <div className="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
-            <div>
-              <Badge variant="success" pulse className="mb-6">Artist-owned production infrastructure</Badge>
-              <p className="mb-5 font-mono text-xs uppercase tracking-[0.22em] text-plasma">Whole Body Studios</p>
-              <h1 className="font-display text-5xl leading-[0.98] font-bold text-bone md:text-7xl">Build the work.<br /><span className="text-plasma">Keep the rights.</span></h1>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-ghost">A production house for artists making music, film, and culture outside the extraction model. We supply the rooms, tools, and release support. You retain the work.</p>
-              <div className="mt-9 flex flex-wrap gap-4">
-                <Button asChild size="lg"><Link href="/apply">Apply for partnership →</Link></Button>
-                <Button asChild size="lg" variant="outline"><Link href="/catalog">View projects</Link></Button>
-              </div>
-            </div>
-
-            <article className="relative overflow-hidden border border-mercury bg-steel p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] md:p-6">
-              <div className="absolute top-0 left-0 h-8 w-8 border-t-2 border-l-2 border-plasma" />
-              <div className="relative aspect-square overflow-hidden bg-void">
-                <Image src="/images/releases/sandabado-infinity-love.png" alt="Sandābādo — ∞ Love album artwork" fill priority sizes="(min-width: 1024px) 48vw, 100vw" className="object-cover" />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-void via-void/50 to-transparent p-6 pt-20">
-                  <Badge variant="info" className="mb-3">Featured release</Badge>
-                  <p className="font-mono text-xs uppercase tracking-[0.17em] text-plasma">Sandābādo</p>
-                  <h2 className="mt-1 font-display text-4xl font-bold text-bone">∞ Love</h2>
-                </div>
-              </div>
-              <div className="mt-5 flex items-center justify-between gap-4">
-                <p className="font-mono text-xs uppercase tracking-[0.14em] text-ghost">Artist-owned album · 13 tracks</p>
-                <a href="https://sandabado.com/music" className="shrink-0 font-mono text-xs uppercase tracking-[0.12em] text-plasma hover:text-bone">Explore ↗</a>
-              </div>
-            </article>
+      <section id="hero" className={SECTION_SHELL}>
+        <div className="relative mx-auto max-w-6xl text-center [text-shadow:0_2px_28px_rgba(0,0,0,.96)]">
+          <p className="font-mono text-[10px] uppercase tracking-[.32em] text-press sm:text-xs">The Whole Body Constellation</p>
+          <h1 className="mx-auto mt-5 max-w-4xl font-display text-5xl leading-[.94] font-semibold text-bone sm:text-6xl lg:text-7xl">Five Pillars. One Whole Body.</h1>
+          <div className="mx-auto mt-6 max-w-3xl space-y-4 text-base leading-7 text-bone/78 sm:text-lg">
+            <p>Your birth chart reveals your design. Whole Body Earth maps you to one of five pillars — Presence, Press, Studios, Foundation, Guardian — then guides you to the practice, community, and work that fits your architecture.</p>
+            <p className="text-bone/72">A network for sovereign creators.</p>
           </div>
-        </section>
+          <Link href="/reading" className="mt-8 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Get your reading →</Link>
+          <a href="#quincunx" className="hero-scroll-cue mx-auto mt-10 flex w-fit flex-col items-center gap-2 text-press">
+            <span className="font-mono text-[10px] uppercase tracking-[.24em]">Follow the constellation</span>
+            <span className="hero-scroll-cue-arrow flex h-10 w-6 items-center justify-center border border-press/55 text-xl">↓</span>
+          </a>
+        </div>
+      </section>
 
-        <section className="px-6 py-16 md:py-20">
-          <div className="mx-auto max-w-[1200px]">
-            <SectionHeading eyebrow="The operating model" title={<>Proof in the <span className="text-plasma">structure.</span></>} description="The terms are simple by design: clear service fees, transparent splits, and no ownership transfer." className="mb-10" />
-            <MetricGrid items={METRICS} />
+      <section id="quincunx" className={SECTION_SHELL}>
+        <div className="relative mx-auto max-w-3xl text-center [text-shadow:0_2px_20px_rgba(0,0,0,.9)]">
+          <div className="mx-auto h-px w-16 bg-press/35" />
+          <p className="mt-8 font-mono text-[10px] uppercase tracking-[.28em] text-press">The Quincunx</p>
+          <h2 className="mt-4 font-display text-4xl text-press sm:text-5xl">You are made of the elements.</h2>
+          <div className="mt-6 space-y-5 text-lg leading-8 text-bone/80">
+            <p>Physical, mental, emotional, and spiritual bodies move around an ethereal center. Your chart shows their relative weight — and the center illuminates when your system holds in balance.</p>
+            <p>Whole Body turns that pattern into a real practice: embodiment, signal, creative flow, structure, or synthesis.</p>
           </div>
-        </section>
+          <Link href="/reading" className="mt-9 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Get your Whole Body Reading →</Link>
+        </div>
+      </section>
 
-        <section className="border-y border-mercury bg-carbon/35 px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-[1200px]">
-            <SectionHeading eyebrow="Artist roster" title={<>Artists with <span className="text-plasma">the final say.</span></>} description="A growing circle of independent artists and projects, supported without surrendering their rights." align="center" className="mb-12" />
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {ROSTER.map((artist) => <ArtworkTile key={artist.title} {...artist} />)}
-            </div>
-            <div className="mt-9 text-center"><Button asChild variant="outline"><Link href="/catalog">See the project catalog →</Link></Button></div>
+      {PILLARS.map((pillar) => <PillarSection key={pillar.id} pillar={pillar} />)}
+
+      <section id="reading" className={`${SECTION_SHELL} min-h-[70svh]`}>
+        <div className="relative mx-auto max-w-3xl text-center [text-shadow:0_2px_24px_rgba(0,0,0,.96)]">
+          <div className="mx-auto h-px w-16 bg-press/35" />
+          <p className="mt-8 font-mono text-[10px] uppercase tracking-[.3em] text-press">Your design is waiting</p>
+          <h2 className="mt-4 font-display text-4xl text-press sm:text-5xl">Find the pillar that is asking for you.</h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-bone/85">Enter your birth data. See your weighted Quincunx. Begin with a practice that meets you where you are.</p>
+          <Link href="/reading" className="mt-9 inline-block bg-fire px-7 py-4 font-display text-lg text-void shadow-[0_0_28px_rgba(209,107,69,.42)] transition hover:bg-fire/85">Begin your reading →</Link>
+        </div>
+      </section>
+
+      <section id="paths" className="relative border-t border-mercury bg-carbon/45 px-6 py-20 sm:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <p className="text-center font-mono text-[10px] uppercase tracking-[.3em] text-press">The five paths</p>
+          <h2 className="mt-4 text-center font-display text-4xl text-bone sm:text-5xl">Find the door that is calling.</h2>
+          <div className="mt-12 grid gap-5 text-left sm:grid-cols-2 lg:grid-cols-5">
+            {PILLARS.map((pillar) => <PillarCard key={pillar.id} pillar={pillar} />)}
           </div>
-        </section>
+        </div>
+      </section>
+    </main>
+  </>;
+}
 
-        <section className="px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-[1200px]">
-            <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-              <SectionHeading eyebrow="Selected releases" title={<>The catalog is <span className="text-plasma">the receipt.</span></>} />
-              <Link href="/catalog" className="font-mono text-xs uppercase tracking-[0.14em] text-plasma hover:text-bone">Full catalog →</Link>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {RELEASES.map((release) => <ArtworkTile key={release.title} {...release} />)}
-            </div>
-          </div>
-        </section>
+type Pillar = (typeof PILLARS)[number];
 
-        <section className="border-y border-mercury bg-carbon/35 px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-[1200px]">
-            <SectionHeading eyebrow="Facilities & fieldwork" title={<>Rooms, tools, and the <span className="text-plasma">space between them.</span></>} description="From desert tracking to post-production and moving image, the facility follows the needs of the work." className="mb-12" />
-            <div className="grid gap-6 md:grid-cols-3">
-              {STUDIO_SPACES.map((space) => <ArtworkTile key={space.title} {...space} />)}
-            </div>
-            <div className="mt-9"><Button asChild variant="outline"><Link href="/services">View studio services →</Link></Button></div>
-          </div>
-        </section>
+function PillarCard({ pillar }: { pillar: Pillar }) {
+  return <Link href={`/pillars/${pillar.id}`} className="pillar-card group min-h-72 border border-transparent bg-carbon/90 p-5 shadow-[0_16px_38px_rgba(0,0,0,.32)] backdrop-blur-md transition duration-300 hover:-translate-y-2 hover:bg-steel/95" style={{ "--pillar": pillar.tone, boxShadow: `0 16px 38px rgba(0,0,0,.32), 0 0 24px ${pillar.tone}20` } as CSSProperties}>
+    <div className={`flex h-24 items-center justify-center overflow-hidden border border-current/20 bg-void/50 font-display text-5xl ${pillar.color}`}>{pillar.mark}</div>
+    <p className={`mt-5 font-mono text-[10px] uppercase tracking-[.16em] ${pillar.color}`}>{pillar.mark} {pillar.body}</p>
+    <p className="mt-1 font-mono text-[9px] uppercase tracking-[.12em] text-ghost">{pillar.element} · {pillar.solid}</p>
+    <h2 className="mt-3 font-display text-2xl text-bone transition group-hover:text-[var(--pillar)]">{pillar.name}</h2>
+    <p className="mt-3 text-sm leading-6 text-bone/72">{pillar.description}</p>
+    <span className={`mt-5 block font-mono text-[10px] uppercase tracking-[.12em] ${pillar.color}`}>Explore {pillar.name} →</span>
+  </Link>;
+}
 
-        <ProductionTicker items={["Now in production", "Sandābādo · vinyl masters", "Living Earth Vol. 1 · mixing", "Sarah Veya · tracking", "Film unit · field sessions"]} />
+function PillarSection({ pillar }: { pillar: Pillar }) {
+  return <section id={pillar.id} className={SECTION_SHELL}>
+    <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[.95fr_1.05fr]">
+      <div className="[text-shadow:0_2px_18px_rgba(0,0,0,.88)]">
+        <p className={`font-mono text-[10px] uppercase tracking-[.24em] ${pillar.color}`}>{pillar.mark} {pillar.element} · {pillar.solid}</p>
+        <h2 className={`mt-4 font-display text-5xl font-semibold ${pillar.color}`}>{pillar.name}</h2>
+        <p className={`mt-2 font-display text-2xl italic ${pillar.color}`}>{pillar.tagline}</p>
+        <div className="mt-6 space-y-5 text-lg leading-8 text-bone/80">{pillar.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+        <Link href={`/pillars/${pillar.id}`} className={`mt-8 inline-block border px-5 py-3 font-mono text-xs uppercase tracking-[.12em] transition hover:bg-white/5 ${pillar.color}`} style={{ borderColor: pillar.tone }}>Explore {pillar.name} →</Link>
+      </div>
+      <Feature tone={pillar.tone} color={pillar.color} label={pillar.feature.label} title={pillar.feature.title} text={pillar.feature.text} />
+    </div>
+  </section>;
+}
 
-        <FeedFirstBlock />
-
-        <section className="border-y border-mercury bg-carbon/35 px-6 py-20">
-          <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <SectionHeading eyebrow="Press room · launches Q4 2026" title={<>The story is <span className="text-plasma">still being written.</span></>} description="Published coverage, partner testimonials, and the complete press kit go live in Q4 2026. Until then, we would rather show the work than manufacture social proof." />
-            <Card hud={false} className="border-dashed bg-void/40 p-8">
-              <p className="font-mono text-xs uppercase tracking-[0.17em] text-plasma">For editors, curators & collaborators</p>
-              <h3 className="mt-3 font-display text-2xl font-bold">Request the current press kit.</h3>
-              <p className="mt-3 max-w-xl leading-relaxed text-ghost">Artist bios, approved release imagery, and production notes are available by request. The public press room opens in Q4 2026, with published coverage added as it is earned.</p>
-              <Button asChild variant="outline" className="mt-6"><Link href="/apply">Request information →</Link></Button>
-            </Card>
-          </div>
-        </section>
-
-        <ConstellationNav elements={ELEMENTS} />
-        <FinalCta />
-      </main>
-    </>
-  );
+function Feature({ label, title, text, tone, color }: { label: string; title: string; text: string; tone: string; color: string }) {
+  return <article className="border bg-void/82 p-6 backdrop-blur-sm" style={{ borderColor: `${tone}66` }}>
+    <p className={`font-mono text-[10px] uppercase tracking-[.18em] ${color}`}>{label}</p>
+    <h3 className="mt-4 font-display text-3xl text-bone">{title}</h3>
+    <p className="mt-4 text-sm leading-7 text-bone/70">{text}</p>
+    <Link href="/pillars/presence/gatherings" className={`mt-7 inline-block font-mono text-xs uppercase tracking-[.1em] ${color}`}>See gatherings →</Link>
+  </article>;
 }

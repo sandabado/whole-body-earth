@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { prisma } from "@/lib/prisma";
-import { getSupabaseClient } from "@/lib/supabaseClient";
+import { getSupabaseAdminClient } from "@/lib/supabaseClient";
 
 const STAGES = ["WRITING", "RECORDING", "RELEASED", "TOURING"] as const;
-const CURRENT_ELEMENT = process.env.NEXT_PUBLIC_CURRENT_ELEMENT || "studios";
+const SERVICES = ["Production / Recording", "Mixing / Mastering", "Distribution", "Sync Licensing", "Artist Development", "Film Scoring"] as const;
+const CURRENT_ELEMENT = process.env.CURRENT_ELEMENT || "studios";
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, (character) => {
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const portfolioPrimary = typeof body.portfolioPrimary === "string" ? body.portfolioPrimary.trim() : "";
     const portfolioSecondary = typeof body.portfolioSecondary === "string" ? body.portfolioSecondary.trim() : "";
     const rawServices = Array.isArray(body.servicesNeeded) ? (body.servicesNeeded as unknown[]) : [];
-    const servicesNeeded = rawServices.filter((item): item is string => typeof item === "string").slice(0, 12);
+    const servicesNeeded = rawServices.filter((item): item is (typeof SERVICES)[number] => typeof item === "string" && SERVICES.includes(item as (typeof SERVICES)[number]));
     const whatBuilding = typeof body.whatBuilding === "string" ? body.whatBuilding.trim() : "";
     const whyStudios = typeof body.whyStudios === "string" ? body.whyStudios.trim() : "";
     const retainsIP = typeof body.retainsIP === "boolean" ? body.retainsIP : null;
@@ -42,9 +42,9 @@ export async function POST(request: NextRequest) {
     }
 
     if (
-      !artistName ||
+      !artistName || artistName.length > 140 ||
       !email ||
-      !genre ||
+      !genre || genre.length > 80 ||
       !portfolioPrimary ||
       !whatBuilding ||
       !consent ||
@@ -53,58 +53,53 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing or invalid required fields" }, { status: 400 });
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || whatBuilding.length > 500 || whyStudios.length > 300) {
+    const normalizeHttpUrl = (value: string) => {
+      try {
+        const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+        return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const primaryPortfolioUrl = normalizeHttpUrl(portfolioPrimary);
+    const secondaryPortfolioUrl = portfolioSecondary ? normalizeHttpUrl(portfolioSecondary) : null;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || phone.length > 40 || !primaryPortfolioUrl || (portfolioSecondary && !secondaryPortfolioUrl) || whatBuilding.length > 500 || whyStudios.length > 300) {
       return NextResponse.json({ error: "Invalid application data" }, { status: 400 });
     }
 
-    const portfolioUrls = [portfolioPrimary, portfolioSecondary].filter(Boolean);
-    const supabase = getSupabaseClient();
-    let applicationId: string | null;
+    const portfolioUrls = [primaryPortfolioUrl, secondaryPortfolioUrl].filter((url): url is string => Boolean(url));
+    const supabase = getSupabaseAdminClient();
 
-    if (supabase) {
-      const { error } = await supabase
-        .from("applications")
-        .insert({
-          element: CURRENT_ELEMENT,
-          artist_name: artistName,
-          email,
-          phone: phone || null,
-          genre,
-          stage,
-          portfolio_urls: portfolioUrls,
-          services_needed: servicesNeeded,
-          what_they_build: whatBuilding,
-          why_studios: whyStudios || null,
-          retains_ip: retainsIP === true ? "Yes" : retainsIP === false ? "No" : "Unsure",
-          consent: true,
-          status: "PENDING",
-        })
-        ;
+    if (!supabase) {
+      console.error("Application intake is missing server-side Supabase configuration");
+      return NextResponse.json({ error: "Application intake is temporarily unavailable" }, { status: 503 });
+    }
 
-      if (error) {
-        console.error("Supabase application insert error:", error);
-        return NextResponse.json({ error: "Unable to save application" }, { status: 500 });
-      }
+    const { data: application, error } = await supabase
+      .from("applications")
+      .insert({
+        element: CURRENT_ELEMENT,
+        artist_name: artistName,
+        email,
+        phone: phone || null,
+        genre,
+        stage,
+        portfolio_urls: portfolioUrls,
+        services_needed: servicesNeeded,
+        what_they_build: whatBuilding,
+        why_studios: whyStudios || null,
+        retains_ip: retainsIP === true ? "Yes" : retainsIP === false ? "No" : "Unsure",
+        consent: true,
+        status: "PENDING",
+      })
+      .select("id")
+      .single();
 
-      applicationId = null;
-    } else {
-      const application = await prisma.application.create({
-        data: {
-          artistName,
-          email,
-          phone: phone || null,
-          genre,
-          stage: stage as (typeof STAGES)[number],
-          portfolioUrls,
-          servicesNeeded,
-          whatTheyBuild: whatBuilding,
-          whyStudios: whyStudios || null,
-          retainsIP,
-          consent: true,
-          status: "PENDING",
-        },
-      });
-      applicationId = application.id;
+    if (error) {
+      console.error("Supabase application insert error:", error);
+      return NextResponse.json({ error: "Unable to save application" }, { status: 500 });
     }
 
     if (process.env.RESEND_API_KEY) {
@@ -135,7 +130,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      applicationId,
+      applicationId: application.id,
       message: "Application submitted successfully",
     });
   } catch (error) {

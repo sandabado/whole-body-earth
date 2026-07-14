@@ -12,6 +12,10 @@
   --color-bone: var(--bone);
   --color-ghost: var(--ghost);
   --color-water: var(--water);
+  --color-fire: var(--fire);
+  --color-earth: var(--earth);
+  --color-press: var(--press);
+  --color-guardian: var(--guardian);
   --font-display: var(--font-cinzel);
   --font-mono: var(--font-dm-mono);
   --font-body: var(--font-inter);
@@ -116,6 +120,103 @@
   font-family: "Noto Sans Symbols 2", "Segoe UI Symbol", "Apple Symbols", sans-serif;
 }
 
+.home-gradient-flow {
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.44) 0%,
+    rgba(5, 5, 5, 0.3) 14%,
+    rgba(209, 107, 69, 0.16) 29%,
+    rgba(212, 175, 55, 0.16) 43%,
+    rgba(43, 168, 160, 0.17) 57%,
+    rgba(74, 103, 65, 0.18) 71%,
+    rgba(143, 91, 255, 0.2) 85%,
+    rgba(5, 5, 5, 0.52) 100%
+  );
+}
+
+.hero-scroll-cue-arrow {
+  animation: constellation-scroll-cue 2.4s ease-in-out infinite;
+}
+
+.footer-system-status {
+  display: inline-block;
+  transition: color 180ms ease, letter-spacing 180ms ease, text-shadow 180ms ease;
+}
+
+.earth-portal-mark {
+  background: linear-gradient(180deg, #ff6b6b 0%, #f6c453 22%, #7edc84 43%, #51c7e8 62%, #8f5bff 80%, #ff78c4 100%);
+  background-clip: text;
+  background-size: 100% 220%;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: earth-gradient-flow 5s linear infinite;
+  filter: drop-shadow(0 0 7px rgba(126, 220, 132, 0.25));
+}
+
+.earth-portal-wordmark {
+  background: linear-gradient(180deg, #ff6b6b 0%, #f6c453 22%, #7edc84 43%, #51c7e8 62%, #8f5bff 80%, #ff78c4 100%);
+  background-clip: text;
+  background-size: 100% 220%;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: earth-gradient-flow 5s linear infinite;
+  filter: drop-shadow(0 0 7px rgba(126, 220, 132, 0.18));
+}
+
+@keyframes earth-gradient-flow {
+  from { background-position: 50% 0%; }
+  to { background-position: 50% 100%; }
+}
+
+.footer-system-status:hover,
+.footer-system-status:focus-visible {
+  color: var(--bone);
+  letter-spacing: 0.14em;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--water), transparent 35%);
+}
+
+.footer-constellation-link {
+  color: var(--ghost);
+  position: relative;
+  transition: border-color 220ms ease, box-shadow 220ms ease, color 220ms ease, transform 220ms ease, background-color 220ms ease;
+}
+
+.footer-constellation-link::after {
+  background: var(--constellation-color);
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 18%;
+  opacity: 0;
+  position: absolute;
+  right: 18%;
+  transform: scaleX(0.35);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.footer-constellation-link:hover,
+.footer-constellation-link:focus-visible {
+  background: color-mix(in srgb, var(--constellation-color), transparent 90%);
+  border-color: color-mix(in srgb, var(--constellation-color), transparent 40%);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--constellation-color), transparent 72%);
+  color: var(--constellation-color);
+  outline: none;
+  transform: translateY(-4px);
+}
+
+.footer-constellation-link:hover::after,
+.footer-constellation-link:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@keyframes constellation-scroll-cue {
+  0%, 100% { transform: translateY(0); opacity: 0.65; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
 @keyframes overlay-fade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -129,6 +230,19 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
+  }
+
+  .earth-portal-mark,
+  .earth-portal-wordmark {
+    animation: none;
+  }
+
+  .hero-scroll-cue-arrow {
+    animation: none;
+  }
+
+  .footer-constellation-link {
+    transition: none;
   }
 
 }
