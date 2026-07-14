@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wholebody.earth"),
+  metadataBase: new URL("https://www.wholebody.earth"),
   title: "Whole Body Earth — Five Pillars. One Whole Body.",
   description:
     "A network for sovereign creators. Five pillars, one living system.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Whole Body Earth",
     description: "Five pillars. One whole body. A network for sovereign creators.",
-    url: "https://wholebody.earth",
+    url: "https://www.wholebody.earth",
     siteName: "Whole Body Earth",
     type: "website",
   },
