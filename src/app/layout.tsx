@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Cinzel, DM_Mono, Inter } from "next/font/google";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const cinzel = Cinzel({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-cinzel",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const dmMono = DM_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-dm-mono",
+  weight: ["400", "500"],
 });
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -45,9 +48,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable}`}
+      className={`${cinzel.variable} ${dmMono.variable} ${inter.variable}`}
     >
-      <body>{children}</body>
+      <body className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

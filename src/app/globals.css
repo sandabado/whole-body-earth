@@ -1,71 +1,134 @@
 @import "tailwindcss";
 @import "../styles/theme.css";
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@theme inline {
+  --color-void: var(--void);
+  --color-carbon: var(--carbon);
+  --color-steel: var(--steel);
+  --color-mercury: var(--mercury);
+  --color-plasma: var(--plasma);
+  --color-flux: var(--flux);
+  --color-halo: var(--halo);
+  --color-bone: var(--bone);
+  --color-ghost: var(--ghost);
+  --color-water: var(--water);
+  --font-display: var(--font-cinzel);
+  --font-mono: var(--font-dm-mono);
+  --font-body: var(--font-inter);
 }
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--void);
+    color: var(--bone);
+    font-family: var(--font-inter), var(--font-body-fallback);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: var(--scanline-opacity);
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  body::after {
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    content: "";
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  a {
+    color: var(--flux);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--plasma);
+  }
+
+  button {
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--water);
+    outline-offset: 3px;
+  }
 }
 
-body {
-  background-color: var(--void);
-  color: var(--bone);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  min-height: 100vh;
-  overflow-x: hidden;
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-body::before {
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.15) 0,
-    rgba(0, 0, 0, 0.15) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  content: "";
-  height: 100%;
-  left: 0;
-  opacity: var(--scanline-opacity);
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 9999;
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+  display: inline-block;
+  min-width: max-content;
 }
 
-body::after {
-  background-image:
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 40px 40px;
-  content: "";
-  height: 100%;
-  left: 0;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: -1;
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
-a {
-  color: var(--flux);
-  text-decoration: none;
-  transition: color 0.2s ease;
+.alchemical-glyph {
+  font-family: "Noto Sans Symbols 2", "Segoe UI Symbol", "Apple Symbols", sans-serif;
 }
 
-a:hover {
-  color: var(--plasma);
+@keyframes overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-button {
-  cursor: pointer;
-  font-family: inherit;
+@keyframes modal-rise {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
 }
