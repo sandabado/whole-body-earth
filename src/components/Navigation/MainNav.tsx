@@ -22,8 +22,8 @@ const EARTH_NAVIGATION: PillarNavigation = {
 
 const STUDIOS_NAVIGATION: PillarNavigation = {
   links: [
-    { href: "/about", label: "About" },
-    { href: "/catalog", label: "Catalog" },
+    { href: "/pillars/studios/about", label: "About" },
+    { href: "/pillars/studios/catalog", label: "Catalog" },
     { href: "/calendar", label: "Calendar" },
   ],
   cta: { href: "/apply", label: "Apply →", accent: "water" },
@@ -53,7 +53,7 @@ export default function MainNav({ onMenuOpen }: MainNavProps) {
   const isPresence = pathname.startsWith("/pillars/presence");
   const isFoundation = pathname.startsWith("/pillars/foundation");
   const isGuardian = pathname.startsWith("/pillars/guardian");
-  const isStudios = pathname.startsWith("/pillars/studios") || pathname === "/catalog" || pathname === "/services";
+  const isStudios = pathname.startsWith("/pillars/studios") || pathname === "/services";
   const navigation = isGuardian ? GUARDIAN_NAVIGATION : isFoundation ? FOUNDATION_NAVIGATION : isPresence ? PRESENCE_NAVIGATION : isPress ? PRESS_NAVIGATION : isStudios ? STUDIOS_NAVIGATION : EARTH_NAVIGATION;
   const accentClasses = navigation.cta.accent === "constellation" ? "border-bone text-bone hover:bg-bone hover:text-void" : navigation.cta.accent === "guardian" ? "border-guardian text-guardian hover:bg-guardian hover:text-void" : navigation.cta.accent === "press" ? "border-press text-press hover:bg-press hover:text-void" : navigation.cta.accent === "fire" ? "border-fire bg-fire text-void hover:bg-transparent hover:text-fire" : navigation.cta.accent === "earth" ? "border-earth bg-earth text-bone hover:bg-transparent hover:text-earth" : "border-water bg-water text-void hover:bg-transparent hover:text-water";
 

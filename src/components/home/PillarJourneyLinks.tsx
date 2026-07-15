@@ -14,7 +14,7 @@ const JOURNEYS: Record<PillarId, Array<{ label: string; title: string; body: str
   ],
   studios: [
     { label: "Artist roster", title: "Artists with the final say.", body: "Music, film, and culture built outside the extraction model—with rights remaining with the artist.", href: "/pillars/studios", cta: "Meet the roster" },
-    { label: "Selected releases", title: "The catalog is the receipt.", body: "From Sandābādo to work in development, follow the projects moving through the studio.", href: "/catalog", cta: "View the catalog" },
+    { label: "Selected releases", title: "The catalog is the receipt.", body: "From Sandābādo to work in development, follow the projects moving through the studio.", href: "/pillars/studios/catalog", cta: "View the catalog" },
     { label: "Facilities & fieldwork", title: "Rooms, tools, and the space between.", body: "Tracking, spatial and vinyl-ready masters, and music-film fieldwork from Morongo Valley.", href: "/pillars/studios/services", cta: "Explore services" },
   ],
   foundation: [

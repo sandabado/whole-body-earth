@@ -23,7 +23,7 @@ export default function TopNav() {
         </div>
         <Link href="/" className={`flex shrink-0 items-center gap-2 font-display text-lg font-semibold tracking-wide transition duration-300 hover:opacity-80 sm:text-xl ${scrolled ? "scale-[.78]" : "scale-100"}`}><span className="earth-portal-mark alchemical-glyph text-3xl">♁</span><span className="earth-portal-wordmark">Whole Body Earth</span></Link>
         <div className="flex min-w-0 items-center justify-end gap-3 sm:gap-5">
-          <Link href="/about" className={`${linkClass} hidden sm:inline`}>About</Link>
+          <Link href="/pillars/studios/about" className={`${linkClass} hidden sm:inline`}>About</Link>
           <Link href="/store" className={`${linkClass} hidden sm:inline`}>Store</Link>
           <Link href="/calendar" className={`${linkClass} hidden sm:inline`}>Calendar</Link>
           <Link href="/careers" className={`${linkClass} hidden sm:inline`}>Careers</Link>

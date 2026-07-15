@@ -10,6 +10,12 @@ export const MEDIA_ATLAS = {
   },
   studios: {
     infinityLove: "/images/releases/sandabado-infinity-love.png",
+    sandabado333: "/images/releases/archive/sandabado-333.jpg",
+    joshuaTreeSessions: "/images/releases/archive/broken-stems-joshua-tree-sessions.jpg",
+    whatAreYouConnected: "/images/releases/archive/broken-stems-what-are-you-connected.jpg",
+    weAreHomeEp: "/images/releases/archive/broken-stems-we-are-home-ep.jpg",
+    pbSessions: "/images/releases/archive/uproot-pb-sessions.jpg",
+    levity: "/images/releases/archive/uproot-levity.jpg",
     desertSession: "/images/studio/desert-session.png",
     objectsSession: "/images/studio/objects-session.png",
   },

@@ -34,7 +34,7 @@ export default function WholeBodyEarthHome() {
             <p className="text-bone/72">A network for sovereign creators.</p>
           </div>
           <Link href="/reading" className="mt-8 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Get Your Reading in 60 Seconds →</Link>
-          <a href="/catalog" className="hero-scroll-cue mx-auto mt-10 flex w-fit flex-col items-center gap-2 text-press">
+          <a href="/pillars/studios/catalog" className="hero-scroll-cue mx-auto mt-10 flex w-fit flex-col items-center gap-2 text-press">
             <span className="font-mono text-[10px] uppercase tracking-[.24em]">Enter the Library</span>
             <span className="hero-scroll-cue-arrow flex h-10 w-6 items-center justify-center border border-press/55 text-xl">↓</span>
           </a>

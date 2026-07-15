@@ -8,8 +8,8 @@ import MainNav from "./MainNav";
 import { PILLAR_LIST } from "@/lib/pillars";
 
 const mainLinks = [
-  { href: "/about", label: "About" },
-  { href: "/catalog", label: "Catalog" },
+  { href: "/pillars/studios/about", label: "About" },
+  { href: "/pillars/studios/catalog", label: "Catalog" },
   { href: "/calendar", label: "Calendar" },
 ];
 

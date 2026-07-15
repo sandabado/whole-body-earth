@@ -1,11 +1,23 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const announcements = [
-  "● NOW LIVE: SANDABADO — DEBUT ALBUM STREAMING · CODEX VOL. I–V AVAILABLE · WEEKLY CIRCLE EVERY TUESDAY ●",
+  "Now live: Sandābādo — ∞ Love",
+  "The Whole Body Series · Volumes I–V",
+  "Weekly Whole Body Circle · Every Tuesday",
 ];
 
 export default function AnnouncementTicker() {
-  const repeatingAnnouncements = [...announcements, ...announcements];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % announcements.length);
+    }, 6_000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <Link
@@ -15,13 +27,9 @@ export default function AnnouncementTicker() {
     >
       <span className="shrink-0 bg-void pr-2 font-mono uppercase tracking-[0.16em] text-press">Live</span>
       <span className="sr-only">Current releases and upcoming gatherings: </span>
-      <span className="min-w-0 flex-1 overflow-hidden">
-        <span className="animate-marquee whitespace-nowrap font-mono uppercase tracking-[0.11em]" aria-hidden="true">
-          {repeatingAnnouncements.map((announcement, index) => (
-            <span key={`${announcement}-${index}`}>
-              {announcement}<span className="mx-3 text-press">✦</span>
-            </span>
-          ))}
+      <span className="min-w-0 flex-1 overflow-hidden" aria-hidden="true">
+        <span key={announcements[activeIndex]} className="announcement-fade block truncate font-mono uppercase tracking-[0.11em]">
+          {announcements[activeIndex]}<span className="mx-2 text-press">✦</span>
         </span>
       </span>
     </Link>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { TestimonialWall } from "@/components/home/TestimonialWall";
 
 const BODIES = [
   { name: "Spiritual", element: "Fire", symbol: "🜂", color: "#d16b45", copy: "The drive to gather. The spark that says: you are not alone." },
@@ -61,7 +60,6 @@ export function ApplySection() {
           ))}
         </div>
         <p className="mt-10 font-mono text-xs uppercase tracking-[.16em] text-ghost">Three paths. One constellation.</p>
-        <div className="mt-12"><TestimonialWall /></div>
         <div className="mx-auto mt-14 max-w-2xl border-t border-mercury pt-10">
           <p className="font-mono text-[10px] uppercase tracking-[.16em] text-ghost">Looking for employment?</p>
           <p className="mt-4 text-sm leading-6 text-bone/70">Employment is separate from membership. Explore open roles at Whole Body Earth and bring your work to the Guild.</p>

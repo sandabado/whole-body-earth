@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { InfinityLoveRelease } from "@/components/studios/InfinityLoveRelease";
 import { MEDIA_ATLAS } from "@/lib/media-atlas";
+import { STUDIO_MUSIC_CATALOG } from "@/lib/music-catalog";
 
 const metrics = [
   {
@@ -60,20 +61,12 @@ const roster = [
     label: "Project file",
   },
 ];
-const releases = [
-  {
-    title: "∞ Love",
-    subtitle: "Sandābādo · Album",
-    image: MEDIA_ATLAS.studios.infinityLove,
-    label: "Featured",
-  },
-  {
-    title: "Living Earth Vol. 1",
-    subtitle: "Various artists · Compilation",
-    label: "In development",
-  },
-  { title: "Memory EP", subtitle: "Sarah Veya · EP", label: "In production" },
-];
+const releases = STUDIO_MUSIC_CATALOG.slice(0, 6).map((release) => ({
+  title: release.title,
+  subtitle: `${release.artist} · ${release.format}`,
+  image: release.image,
+  label: release.status,
+}));
 const spaces = [
   {
     title: "Desert Studio",
@@ -128,7 +121,7 @@ export default function StudiosPage() {
                   <Link href="/apply">Apply for partnership →</Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <Link href="/catalog">View projects</Link>
+                  <Link href="/pillars/studios/catalog">View projects</Link>
                 </Button>
               </div>
             </div>
@@ -170,7 +163,7 @@ export default function StudiosPage() {
             </div>
             <div className="mt-9 text-center">
               <Button asChild variant="outline">
-                <Link href="/catalog">See the project catalog →</Link>
+                <Link href="/pillars/studios/catalog">See the project catalog →</Link>
               </Button>
             </div>
           </div>
@@ -188,13 +181,13 @@ export default function StudiosPage() {
                 }
               />
               <Link
-                href="/catalog"
+                href="/pillars/studios/catalog"
                 className="font-mono text-xs uppercase tracking-[0.14em] text-plasma"
               >
                 Full catalog →
               </Link>
             </div>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {releases.map((release) => (
                 <ArtworkTile key={release.title} {...release} />
               ))}

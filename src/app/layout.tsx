@@ -25,7 +25,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.wholebody.earth"),
   icons: {
-    icon: "/icon.svg",
+    icon: [{ url: "/icon.svg?v=2", type: "image/svg+xml", sizes: "any" }],
+    shortcut: ["/icon.svg?v=2"],
   },
   title: "Whole Body Earth — Five Pillars. One Whole Body.",
   description:
