@@ -579,6 +579,17 @@
   z-index: 0;
 }
 
+.home-ambient-field {
+  background:
+    radial-gradient(ellipse at 74% 49%, color-mix(in srgb, var(--ambient-color), transparent 70%) 0%, color-mix(in srgb, var(--ambient-color), transparent 90%) 42%, transparent 72%),
+    radial-gradient(ellipse at 50% 50%, rgba(5, 5, 5, .88) 0%, rgba(5, 5, 5, .67) 48%, rgba(5, 5, 5, .18) 80%, transparent 100%);
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: background 1000ms ease;
+  z-index: 0;
+}
+
 .home-star {
   animation: home-star-twinkle var(--star-duration) ease-in-out var(--star-delay) infinite;
   background: #fff;
@@ -603,19 +614,6 @@
   pointer-events: none;
   position: absolute;
   z-index: 0;
-}
-
-.hero-copy {
-  isolation: isolate;
-}
-
-.hero-copy::before {
-  background: radial-gradient(ellipse at center, rgba(5, 5, 5, .9) 0%, rgba(5, 5, 5, .76) 48%, rgba(5, 5, 5, 0) 76%);
-  content: "";
-  inset: -5rem -8rem;
-  pointer-events: none;
-  position: absolute;
-  z-index: -1;
 }
 
 .hero-zodiac-dial {
@@ -660,22 +658,6 @@
 }
 
 @keyframes hero-zodiac-orbit { from { transform: rotate(-17deg) scaleY(.68); } to { transform: rotate(343deg) scaleY(.68); } }
-
-.pillar-portal-section::before {
-  background:
-    radial-gradient(ellipse at 77% 46%, color-mix(in srgb, var(--pillar-color), transparent 57%) 0%, color-mix(in srgb, var(--pillar-color), transparent 84%) 33%, transparent 67%),
-    radial-gradient(ellipse at 35% 50%, rgba(5, 5, 5, .98) 0%, rgba(5, 5, 5, .86) 44%, rgba(5, 5, 5, .38) 76%, transparent 100%);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
-}
-
-.pillar-portal-section > * {
-  position: relative;
-  z-index: 1;
-}
 
 .home-constellation-section::before {
   background-image:

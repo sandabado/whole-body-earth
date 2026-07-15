@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { PILLARS } from "@/lib/pillars";
 import { PillarMediaDeck } from "./PillarMediaDeck";
 import { PillarActivityDialog } from "./PillarActivityDialog";
@@ -7,7 +6,7 @@ import type { PillarSectionData } from "./data/pillar-section-data";
 
 export function PillarPortalSection({ item }: { item: PillarSectionData }) {
   const pillar = PILLARS[item.id];
-  return <section id={item.id} data-pillar={item.id} className="pillar-portal-section relative isolate px-5 py-16 sm:px-6 md:py-24" style={{ "--pillar-color": pillar.color } as CSSProperties}>
+  return <section id={item.id} className="relative px-5 py-16 sm:px-6 md:py-24">
     <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2 lg:gap-14">
       <PillarMediaDeck item={item} color={pillar.color} />
       <div className="order-2 lg:order-none">
