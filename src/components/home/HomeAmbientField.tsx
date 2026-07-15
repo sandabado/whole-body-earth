@@ -15,7 +15,7 @@ const AMBIENT_SECTIONS = [
 
 /** One continuous radial atmosphere, tuned to the section at the viewport center. */
 export function HomeAmbientField() {
-  const [color, setColor] = useState(AMBIENT_SECTIONS[0].color);
+  const [color, setColor] = useState<string>(AMBIENT_SECTIONS[0].color);
 
   useEffect(() => {
     const updateColor = () => {
