@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const AMBIENT_SECTIONS = [
-  { id: "hero", color: "#ff78c4" },
+  { id: "hero", color: "#050505" },
   { id: "five-bodies", color: "#d4af37" },
   { id: "presence", color: "#d16b45" },
   { id: "press", color: "#d4af37" },
