@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import TopNav from "./TopNav";
 import MainNav from "./MainNav";
+import { PILLAR_LIST } from "@/lib/pillars";
 
 const mainLinks = [
   { href: "/about", label: "About" },
@@ -40,22 +41,14 @@ export default function NavStack() {
 }
 
 function EarthNavigation() {
-  const pillars = [
-    { href: "#presence", mark: "🜂", label: "Presence", element: "Fire", color: "text-fire hover:bg-fire/10" },
-    { href: "#press", mark: "🜁", label: "Press", element: "Air", color: "text-press hover:bg-press/10" },
-    { href: "#studios", mark: "🜄", label: "Studios", element: "Water", color: "text-water hover:bg-water/10" },
-    { href: "#foundation", mark: "🜃", label: "Foundation", element: "Earth", color: "text-earth hover:bg-earth/10" },
-    { href: "#guardian", mark: "☉", label: "Guardian", element: "Ether", color: "text-guardian hover:bg-guardian/10" },
-  ] as const;
-
   return <header className="sticky top-0 z-[90] bg-void/95 backdrop-blur-md">
     <TopNav />
     <nav aria-label="The five pillars" className="bg-carbon/85">
       <div className="mx-auto flex min-h-14 max-w-[1200px] overflow-x-auto">
-        {pillars.map((pillar) => <Link key={pillar.label} href={pillar.href} className={`group relative flex min-w-[8.5rem] flex-1 items-center justify-center gap-2 border-r border-mercury/70 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors first:border-l ${pillar.color}`}>
-          <span className="alchemical-glyph text-base leading-none">{pillar.mark}</span>
-          <span>{pillar.label}</span>
-          <span className="hidden text-[9px] text-ghost/75 lg:inline">{pillar.element}</span>
+        {PILLAR_LIST.map((pillar) => <Link key={pillar.id} href={`#${pillar.id}`} className="group relative flex min-w-[8.5rem] flex-1 items-center justify-center gap-2 border-r border-mercury/70 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors first:border-l" style={{ color: pillar.color }}>
+          <span className="alchemical-glyph text-base leading-none">{pillar.symbol}</span>
+          <span>{pillar.name}</span>
+          <span className="hidden text-[9px] text-ghost/75 lg:inline">{pillar.elementLabel}</span>
           <span className="absolute right-4 bottom-0 left-4 h-px origin-center scale-x-0 bg-current transition-transform duration-200 group-hover:scale-x-100" />
         </Link>)}
       </div>

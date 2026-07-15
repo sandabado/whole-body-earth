@@ -1,9 +1,8 @@
+import { PILLARS } from "@/lib/pillars";
+
 export const APPLICATION_PILLARS = {
   presence: {
-    name: "Presence",
-    symbol: "🜂",
-    color: "#d16b45",
-    element: "presence",
+    ...PILLARS.presence,
     description:
       "Circles, retreats, and embodied practice for people ready to arrive in the room.",
     nameLabel: "Your name",
@@ -29,10 +28,7 @@ export const APPLICATION_PILLARS = {
     asksAboutIP: false,
   },
   press: {
-    name: "Press",
-    symbol: "🜁",
-    color: "#d4af37",
-    element: "press",
+    ...PILLARS.press,
     description:
       "A publishing home for work that carries a signal beyond its author.",
     nameLabel: "Author, imprint, or project name",
@@ -58,10 +54,7 @@ export const APPLICATION_PILLARS = {
     asksAboutIP: true,
   },
   studios: {
-    name: "Studios",
-    symbol: "🜄",
-    color: "#2ba8a0",
-    element: "studios",
+    ...PILLARS.studios,
     description:
       "Artist-owned production infrastructure for music, film, and culture.",
     nameLabel: "Artist or project name",
@@ -88,10 +81,7 @@ export const APPLICATION_PILLARS = {
     asksAboutIP: true,
   },
   foundation: {
-    name: "Foundation",
-    symbol: "🜃",
-    color: "#4a6741",
-    element: "foundation",
+    ...PILLARS.foundation,
     description:
       "Land, systems, and durable stewardship for work that needs roots.",
     nameLabel: "Your name or organization",
@@ -117,10 +107,7 @@ export const APPLICATION_PILLARS = {
     asksAboutIP: false,
   },
   guardian: {
-    name: "Guardian",
-    symbol: "☉",
-    color: "#8f5bff",
-    element: "law",
+    ...PILLARS.guardian,
     description:
       "A referral-led path for stewards ready to hold a larger pattern.",
     nameLabel: "Your name or organization",

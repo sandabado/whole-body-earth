@@ -138,6 +138,20 @@
   animation: constellation-scroll-cue 2.4s ease-in-out infinite;
 }
 
+.pulse-dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 999px;
+  background: var(--water);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--water), transparent 25%); }
+  70% { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
 .footer-system-status {
   display: inline-block;
   transition: color 180ms ease, letter-spacing 180ms ease, text-shadow 180ms ease;
@@ -240,6 +254,8 @@
   .hero-scroll-cue-arrow {
     animation: none;
   }
+
+  .pulse-dot { animation: none; }
 
   .footer-constellation-link {
     transition: none;

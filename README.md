@@ -45,3 +45,10 @@ npm run build
 ```
 
 The production build is the source-of-truth release check.
+# Whole Body Earth
+
+## Homepage archive and rollback
+
+The original homepage is preserved at `/home-alt-1`.
+
+To revert the living homepage, replace `src/app/page.tsx` with `src/app/home-alt-1/page.tsx`, then build and deploy. The archive intentionally keeps the original v1 layout and components intact.

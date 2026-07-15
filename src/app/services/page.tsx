@@ -36,7 +36,7 @@ const SERVICES = [
     retain: "100% of composition rights and publishing",
     badge: "Pipeline Building",
     cta: "Submit for Sync",
-    href: "/contact",
+    href: "/apply#services-needed",
   },
   {
     id: "distribution",

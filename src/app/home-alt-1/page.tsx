@@ -1,14 +1,14 @@
+// ARCHIVED HOMEPAGE v1
+// Do NOT modify this file unless reverting changes.
+// Active homepage rebuilt in src/app/page.tsx (v2).
+// Created: 2026-07-15 · Reason: Living dashboard redesign.
+
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { HomePlatonicLayer } from "@/components/home/HomePlatonicLayer";
-import { ActivityFeed } from "@/components/home/ActivityFeed";
-import { FeaturedStrip } from "@/components/home/FeaturedStrip";
-import { LiveCountdown } from "@/components/home/LiveCountdown";
-import { PillarJourneyLinks } from "@/components/home/PillarJourneyLinks";
-import { PillarDashboard } from "@/components/home/PillarDashboard";
-import { PulseBar } from "@/components/home/PulseBar";
 import { PILLARS as PILLAR_SYSTEM } from "@/lib/pillars";
 
-const SECTION_SHELL = "relative flex items-center overflow-hidden px-5 py-16 sm:px-6 sm:py-20 lg:min-h-[calc(100svh-7rem)] lg:py-24";
+const SECTION_SHELL = "relative flex min-h-[calc(100svh-7rem)] items-center overflow-hidden px-6 py-20 sm:py-24";
 
 const PILLARS = [
   { id: "presence", ...PILLAR_SYSTEM.presence, description: "Fire is the circle that holds you. Weekly gatherings, monthly retreats, and rites of passage.", feature: { label: "The embodied voice", title: "Somatic practice for the signal you carry.", text: "Breath, grounding, vocal activation, and a return to the physical vessel." }, tagline: "The shape of ignition.", paragraphs: ["Fire is the circle that holds you. Weekly gatherings. Monthly retreats. Rites of passage. No hierarchy. No guru. Just belonging.", "The tetrahedron is the simplest solid. Four points. The minimum stable form. So is a circle — where everyone can be seen and no one sits at the head.", "You cannot endure alone. The Old World sold you independence as freedom. It was isolation dressed as strength. Presence is the return to the circle."] },
@@ -24,10 +24,10 @@ export default function WholeBodyEarthHome() {
     <main id="main-content" className="relative z-10 isolate">
       <div aria-hidden="true" className="home-gradient-flow pointer-events-none absolute inset-0 -z-10" />
 
-      <section id="hero" className={`${SECTION_SHELL} min-h-[calc(100svh-4rem)]`}>
+      <section id="hero" className={SECTION_SHELL}>
         <div className="relative mx-auto max-w-6xl text-center [text-shadow:0_2px_28px_rgba(0,0,0,.96)]">
           <p className="font-mono text-[10px] uppercase tracking-[.32em] text-press sm:text-xs">The Whole Body Constellation</p>
-          <h1 className="mx-auto mt-5 max-w-4xl font-display text-5xl leading-[.94] font-medium text-bone sm:text-6xl lg:text-7xl">Five Pillars. One Whole Body.</h1>
+          <h1 className="mx-auto mt-5 max-w-4xl font-display text-5xl leading-[.94] font-semibold text-bone sm:text-6xl lg:text-7xl">Five Pillars. One Whole Body.</h1>
           <div className="mx-auto mt-6 max-w-3xl space-y-4 text-base leading-7 text-bone/78 sm:text-lg">
             <p>You have five bodies. Mental. Physical. Emotional. Spiritual. Ethereal. Each one maps to an element. Each element maps to a geometric solid. Each solid is a pillar of work.</p>
             <p>Wholebody.earth reads your birth chart and reveals which pillar is yours — then guides you to the practice, community, and work that fits your architecture.</p>
@@ -40,9 +40,7 @@ export default function WholeBodyEarthHome() {
           </a>
           <p className="mt-7 font-mono text-[10px] uppercase tracking-[.16em] text-bone/75">🟢 Presence Active&nbsp;&nbsp;&nbsp; 🟢 Press Active&nbsp;&nbsp;&nbsp; 🟢 Studios Active<br className="sm:hidden" /> <span className="hidden sm:inline">&nbsp;&nbsp;&nbsp;</span>🟡 Foundation 2027&nbsp;&nbsp;&nbsp; 🔒 Guardian Soon</p>
         </div>
-        <LiveCountdown hero />
       </section>
-      <PulseBar />
 
       <section id="quincunx" className={SECTION_SHELL}>
         <div className="relative mx-auto max-w-3xl text-center [text-shadow:0_2px_20px_rgba(0,0,0,.9)]">
@@ -73,10 +71,17 @@ export default function WholeBodyEarthHome() {
         </div>
       </section>
 
-      <FeaturedStrip />
-      <ActivityFeed />
+      <section id="paths" className="relative border-t border-mercury bg-carbon/45 px-6 py-20 sm:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <p className="text-center font-mono text-[10px] uppercase tracking-[.3em] text-press">The five paths</p>
+          <h2 className="mt-4 text-center font-display text-4xl text-bone sm:text-5xl">Find the door that is calling.</h2>
+          <div className="mt-12 grid gap-5 text-left sm:grid-cols-2 lg:grid-cols-5">
+            {PILLARS.map((pillar) => <PillarCard key={pillar.id} pillar={pillar} />)}
+          </div>
+        </div>
+      </section>
 
-      <section className="relative border-t border-mercury px-6 py-20 sm:py-24">
+      <section className="relative border-t border-mercury bg-carbon px-6 py-20 sm:py-24">
         <div className="mx-auto max-w-4xl">
           <p className="text-center font-mono text-[10px] uppercase tracking-[.3em] text-press">The Feed First Algorithm</p>
           <h2 className="mt-4 text-center font-display text-4xl text-bone sm:text-5xl">The creator eats before the platform. Always.</h2>
@@ -93,20 +98,37 @@ export default function WholeBodyEarthHome() {
 
 type Pillar = (typeof PILLARS)[number];
 
+function PillarCard({ pillar }: { pillar: Pillar }) {
+  return <Link href={pillar.href} className="pillar-card group min-h-72 border border-transparent bg-carbon/90 p-5 shadow-[0_16px_38px_rgba(0,0,0,.32)] backdrop-blur-md transition duration-300 hover:-translate-y-2 hover:bg-steel/95" style={{ "--pillar": pillar.color, boxShadow: `0 16px 38px rgba(0,0,0,.32), 0 0 24px ${pillar.color}20` } as CSSProperties}>
+    <div className="flex h-24 items-center justify-center overflow-hidden border border-current/20 bg-void/50 font-display text-5xl" style={{ color: pillar.color }}>{pillar.symbol}</div>
+    <p className="mt-5 font-mono text-[10px] uppercase tracking-[.16em]" style={{ color: pillar.color }}>{pillar.symbol} {pillar.body} · {pillar.faces} faces</p>
+    <p className="mt-1 font-mono text-[9px] uppercase tracking-[.12em] text-ghost">{pillar.elementLabel} · {pillar.solid}</p>
+    <h2 className="mt-3 font-display text-2xl text-bone transition group-hover:text-[var(--pillar)]">{pillar.name}</h2>
+    <p className="mt-3 text-sm leading-6 text-bone/72">{pillar.description}</p>
+    <span className="mt-5 block font-mono text-[10px] uppercase tracking-[.12em]" style={{ color: pillar.color }}>Explore {pillar.name} →</span>
+  </Link>;
+}
+
 function PillarSection({ pillar }: { pillar: Pillar }) {
   return <section id={pillar.id} className={SECTION_SHELL}>
-    <div className="relative mx-auto w-full max-w-6xl">
-    <div className="grid items-center gap-10 lg:grid-cols-[.95fr_1.05fr]">
+    <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[.95fr_1.05fr]">
       <div className="[text-shadow:0_2px_18px_rgba(0,0,0,.88)]">
         <p className="font-mono text-[10px] uppercase tracking-[.24em]" style={{ color: pillar.color }}>{pillar.symbol} {pillar.elementLabel} · {pillar.solid} · {pillar.body} · {pillar.faces} faces</p>
-        <h2 className="mt-4 font-display text-5xl font-medium" style={{ color: pillar.color }}>{pillar.name}</h2>
-        <p className="mt-2 font-display text-xl" style={{ color: pillar.color }}>{pillar.tagline}</p>
+        <h2 className="mt-4 font-display text-5xl font-semibold" style={{ color: pillar.color }}>{pillar.name}</h2>
+        <p className="mt-2 font-display text-2xl italic" style={{ color: pillar.color }}>{pillar.tagline}</p>
         <div className="mt-6 space-y-5 text-lg leading-8 text-bone/80">{pillar.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
         <Link href={pillar.href} className="mt-8 inline-block border px-5 py-3 font-mono text-xs uppercase tracking-[.12em] transition hover:bg-white/5" style={{ borderColor: pillar.color, color: pillar.color }}>Explore {pillar.name} →</Link>
       </div>
-      <PillarDashboard pillar={pillar.id} />
-    </div>
-    <PillarJourneyLinks pillar={pillar.id} />
+      <Feature tone={pillar.color} label={pillar.feature.label} title={pillar.feature.title} text={pillar.feature.text} />
     </div>
   </section>;
+}
+
+function Feature({ label, title, text, tone }: { label: string; title: string; text: string; tone: string }) {
+  return <article className="border bg-void/82 p-6 backdrop-blur-sm" style={{ borderColor: `${tone}66` }}>
+    <p className="font-mono text-[10px] uppercase tracking-[.18em]" style={{ color: tone }}>{label}</p>
+    <h3 className="mt-4 font-display text-3xl text-bone">{title}</h3>
+    <p className="mt-4 text-sm leading-7 text-bone/70">{text}</p>
+    <Link href="/pillars/presence/gatherings" className="mt-7 inline-block font-mono text-xs uppercase tracking-[.1em]" style={{ color: tone }}>See gatherings →</Link>
+  </article>;
 }

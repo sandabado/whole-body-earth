@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { mesh } from "topojson-client";
 import * as THREE from "three";
 import landAtlas from "world-atlas/land-110m.json";
+import { StarDust } from "@/components/backgrounds/PillarAtlasLayer";
 
 type SolidName = "tetrahedron" | "octahedron" | "icosahedron" | "cube" | "dodecahedron";
 type SceneName = SolidName | "all" | "logo";
@@ -31,49 +32,9 @@ const SOLID_COLORS: Record<SolidName, string> = {
   dodecahedron: "#8f5bff",
 };
 
-function OrbitalStarField() {
-  const ref = useRef<THREE.Points>(null);
-  const { geometry, material } = useMemo(() => {
-    let seed = 48271;
-    const random = () => {
-      seed = (seed * 16807) % 2147483647;
-      return (seed - 1) / 2147483646;
-    };
-    const count = 2600;
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-    const palette = ["#ededed", "#d4af37", "#bba7ff", "#fda4d4"].map((color) => new THREE.Color(color));
-
-    for (let index = 0; index < count; index += 1) {
-      const radius = 8 + Math.pow(random(), 0.7) * 42;
-      const theta = random() * Math.PI * 2;
-      const phi = Math.acos(2 * random() - 1);
-      positions[index * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      positions[index * 3 + 1] = radius * Math.cos(phi);
-      positions[index * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta);
-      const color = palette[Math.floor(random() * palette.length)];
-      colors[index * 3] = color.r;
-      colors[index * 3 + 1] = color.g;
-      colors[index * 3 + 2] = color.b;
-    }
-
-    const starGeometry = new THREE.BufferGeometry();
-    starGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    starGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-    return {
-      geometry: starGeometry,
-      material: new THREE.PointsMaterial({ size: 0.05, sizeAttenuation: true, vertexColors: true, transparent: true, opacity: 0.86, depthWrite: false }),
-    };
-  }, []);
-
-  useFrame((state, delta) => {
-    if (!ref.current) return;
-    ref.current.rotation.y += delta * 0.008;
-    ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.025) * 0.12;
-    ref.current.rotation.z = Math.cos(state.clock.elapsedTime * 0.018) * 0.035;
-  });
-
-  return <points ref={ref} geometry={geometry} material={material} />;
+function atlasColor(scene: SceneName) {
+  if (scene === "logo" || scene === "all") return "#b7b7c4";
+  return scene === "dodecahedron" ? "#ff4fa3" : SOLID_COLORS[scene];
 }
 
 function solidGeometry(name: SolidName) {
@@ -175,18 +136,8 @@ function Solid({
   return <Float speed={1.1} floatIntensity={0.35}>
     <group ref={ref} position={position} scale={scale}>
       <mesh geometry={geometry} renderOrder={alwaysVisible ? 5 : 0}>
-        <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={alwaysVisible ? 3.4 : 0.55}
-          opacity={alwaysVisible ? 0.92 : 0.24}
-          transparent
-          roughness={0.3}
-          metalness={0.4}
-          depthTest={!alwaysVisible}
-          depthWrite={!alwaysVisible}
-        />
-        <Edges color={alwaysVisible ? "#fff0f8" : color} opacity={1} transparent depthTest={!alwaysVisible} renderOrder={alwaysVisible ? 6 : 0} />
+        {alwaysVisible ? <meshBasicMaterial color={color} transparent opacity={0.98} depthTest={false} depthWrite={false} toneMapped={false} /> : <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.55} opacity={0.24} transparent roughness={0.3} metalness={0.4} depthWrite={false} />}
+        <Edges color={alwaysVisible ? "#fff5fb" : color} opacity={1} transparent depthTest={false} depthWrite={false} renderOrder={alwaysVisible ? 6 : 1} />
       </mesh>
     </group>
   </Float>;
@@ -278,8 +229,8 @@ function Scene({ active, heroEarth }: { active: SceneName; heroEarth: boolean })
   if (active !== "all") {
     const isHeroDodecahedron = heroEarth && active === "dodecahedron";
     return <>
-      {isHeroDodecahedron ? <pointLight position={[0, 0, 2.5]} color="#ff9dcb" intensity={4.2} distance={8} /> : null}
-      <Solid name={active} scale={isHeroDodecahedron ? 1.18 : 2.2} alwaysVisible={isHeroDodecahedron} colorOverride={isHeroDodecahedron ? "#ff4fa3" : undefined} />
+      {isHeroDodecahedron ? <pointLight position={[0, 0, 2.5]} color="#ff7ab8" intensity={7} distance={9} /> : null}
+      <Solid name={active} scale={isHeroDodecahedron ? 1.62 : 2.2} alwaysVisible={isHeroDodecahedron} colorOverride={isHeroDodecahedron ? "#ff2492" : undefined} />
     </>;
   }
   return <>
@@ -316,7 +267,7 @@ export default function HomePlatonicBackground() {
 
   return <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-void">
     <Canvas camera={{ position: [0, 0, 8], fov: 48 }} dpr={[1, 1.5]}>
-      <OrbitalStarField />
+      <StarDust color={atlasColor(scenes[sceneIndex])} />
       <ambientLight intensity={0.45} />
       <pointLight position={[5, 6, 5]} intensity={1.4} color="#f4e0a6" />
       <pointLight position={[-5, -4, 3]} intensity={0.7} color="#fda4d4" />

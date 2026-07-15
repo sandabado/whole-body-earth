@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { PILLARS } from "@/lib/pillars";
 
 const FOOTER_CONSTELLATION = [
-  { name: "Presence", icon: "🜂", status: "Q1 2027", href: "/pillars/presence", color: "#d16b45" },
-  { name: "Foundation", icon: "🜃", status: "Q1 2027", href: "/pillars/foundation", color: "#4a6741" },
-  { name: "Press", icon: "🜁", status: "Q1 2027", href: "/pillars/press", color: "#d4af37" },
-  { name: "Studios", icon: "🜄", status: "★ Current", href: "/pillars/studios", color: "#2ba8a0" },
-  { name: "Law", icon: "☉", status: "Q1 2027", href: "/pillars/guardian", color: "#8f5bff" },
+  { id: "presence", footerStatus: "★ Current" }, { id: "foundation", footerStatus: "Q1 2027" }, { id: "press", footerStatus: "★ Current" }, { id: "studios", footerStatus: "★ Current" }, { id: "guardian", footerStatus: "Soon" },
 ] as const;
 
 export default function ConstellationStrip() {
@@ -18,12 +15,12 @@ export default function ConstellationStrip() {
     </div>
     <div className="mx-auto max-w-[1200px] px-6 py-6">
       <div className="flex flex-wrap items-stretch justify-center gap-x-3 gap-y-3 sm:gap-x-5">
-        {FOOTER_CONSTELLATION.map((item) => <Link key={item.name} href={item.href} className="footer-constellation-link group flex min-w-[6.8rem] flex-col items-center justify-center gap-1 border border-transparent px-4 py-3 text-center" style={{ "--constellation-color": item.color } as CSSProperties}>
-          <span className="alchemical-glyph text-2xl leading-none" aria-hidden="true">{item.icon}</span>
-          <span className="font-display text-xs">{item.name}</span>
-          <span className="font-mono text-[10px] uppercase tracking-widest">{item.status}</span>
-          <span className="sr-only">Visit Whole Body {item.name}</span>
-        </Link>)}
+        {FOOTER_CONSTELLATION.map((item) => { const pillar = PILLARS[item.id]; return <Link key={item.id} href={pillar.href} className="footer-constellation-link group flex min-w-[6.8rem] flex-col items-center justify-center gap-1 border border-transparent px-4 py-3 text-center" style={{ "--constellation-color": pillar.color } as CSSProperties}>
+          <span className="alchemical-glyph text-2xl leading-none" aria-hidden="true">{pillar.symbol}</span>
+          <span className="font-display text-xs">{pillar.name}</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest">{item.footerStatus}</span>
+          <span className="sr-only">Visit Whole Body {pillar.name}</span>
+        </Link>; })}
       </div>
     </div>
     <div className="border-t border-mercury px-6 py-4"><div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-4 gap-y-2 font-mono text-xs text-ghost"><span>wholebody.earth · Copyright © 2026 Whole Body Guild LLC</span><Link href="/legal/privacy" className="transition-colors hover:text-water focus-visible:outline-2 focus-visible:outline-water">Privacy</Link><Link href="/legal/terms" className="transition-colors hover:text-water focus-visible:outline-2 focus-visible:outline-water">Terms</Link><a href="https://wholebody.studio" className="transition-colors hover:text-water focus-visible:outline-2 focus-visible:outline-water">wholebody.studio</a><a href="https://wholebody.press" className="transition-colors hover:text-water focus-visible:outline-2 focus-visible:outline-water">wholebody.press</a></div></div>

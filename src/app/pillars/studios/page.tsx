@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArtworkTile,
@@ -9,9 +8,11 @@ import {
   SectionHeading,
 } from "@/components/home";
 import { FeedFirstBlock } from "@/components/sections/FeedFirstBlock";
+import { PillarJourneyMap } from "@/components/layout/PillarJourneyMap";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { InfinityLoveRelease } from "@/components/studios/InfinityLoveRelease";
 
 const metrics = [
   {
@@ -130,27 +131,7 @@ export default function StudiosPage() {
                 </Button>
               </div>
             </div>
-            <article className="relative overflow-hidden border border-mercury bg-steel p-4 shadow-[0_20px_60px_rgba(0,0,0,0.45)] md:p-6">
-              <div className="relative aspect-square overflow-hidden bg-void">
-                <Image
-                  src="/images/releases/sandabado-infinity-love.png"
-                  alt="Sandābādo — ∞ Love album artwork"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 48vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-void via-void/50 to-transparent p-6 pt-20">
-                  <Badge variant="info">Featured release</Badge>
-                  <p className="mt-3 font-mono text-xs uppercase tracking-[0.17em] text-plasma">
-                    Sandābādo
-                  </p>
-                  <h2 className="mt-1 font-display text-4xl font-bold">
-                    ∞ Love
-                  </h2>
-                </div>
-              </div>
-            </article>
+            <InfinityLoveRelease variant="studios" />
           </div>
         </section>
         <section className="px-6 py-16 md:py-20">
@@ -238,7 +219,7 @@ export default function StudiosPage() {
             </div>
             <div className="mt-9">
               <Button asChild variant="outline">
-                <Link href="/services">View studio services →</Link>
+                <Link href="/pillars/studios/services">View studio services →</Link>
               </Button>
             </div>
           </div>
@@ -281,6 +262,7 @@ export default function StudiosPage() {
           </div>
         </section>
         <ConstellationNav elements={elements} />
+        <div className="mx-auto max-w-[1200px] px-6 pb-20"><PillarJourneyMap pillar="studios" /></div>
         <FinalCta />
       </main>
   );

@@ -1,3 +1,6 @@
+import { PILLAR_BRANDS } from "@/lib/pillar-brands";
+import { PILLARS } from "@/lib/pillars";
+
 export interface AppData {
   name: string;
   icon: string;
@@ -9,11 +12,8 @@ export interface AppData {
 }
 
 export const constellationApps: AppData[] = [
-  { name: "Presence", icon: "🜂", element: "FIRE", status: "ACTIVE", url: "/pillars/presence", subtitle: "Circle", brandColor: PILLAR_BRANDS.presence },
-  { name: "Foundation", icon: "🜃", element: "EARTH", status: "ACTIVE", url: "/pillars/foundation", subtitle: "Ground", brandColor: PILLAR_BRANDS.foundation },
-  { name: "Press", icon: "🜁", element: "AIR", status: "ACTIVE", url: "/pillars/press", subtitle: "Library", brandColor: PILLAR_BRANDS.press },
-  { name: "Guardian", icon: "☉", element: "ETHER", status: "ACTIVE", url: "/pillars/guardian", subtitle: "Gate", brandColor: PILLAR_BRANDS.guardian },
-  { name: "Studios", icon: "🜄", element: "WATER", status: "HERE", url: "/pillars/studios", subtitle: "Current", brandColor: PILLAR_BRANDS.studios },
+  { name: "Whole Body Earth", icon: "♁", element: "CONSTELLATION", status: "ACTIVE", url: "/", subtitle: "Active", brandColor: PILLAR_BRANDS.constellation },
+  ...(["presence", "foundation", "press", "guardian", "studios"] as const).map((id) => ({ name: PILLARS[id].name, icon: PILLARS[id].symbol, element: PILLARS[id].elementLabel.toUpperCase(), status: id === "studios" ? "HERE" : "ACTIVE", url: PILLARS[id].href, subtitle: PILLARS[id].releaseLabel, brandColor: PILLARS[id].color, } satisfies AppData)),
 ];
 
 export const investorPortal: AppData = {
@@ -25,4 +25,3 @@ export const investorPortal: AppData = {
   subtitle: "Apply",
   brandColor: PILLAR_BRANDS.constellation,
 };
-import { PILLAR_BRANDS } from "@/lib/pillar-brands";

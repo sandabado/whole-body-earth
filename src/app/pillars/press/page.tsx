@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PressBookCard } from "@/components/press/PressBookCard";
 import { PressSectionHeading } from "@/components/press/PressSectionHeading";
+import { PillarJourneyMap } from "@/components/layout/PillarJourneyMap";
 import { pressVolumes } from "@/lib/press-data";
 
 export default function PressHomePage() {
@@ -45,6 +46,7 @@ export default function PressHomePage() {
         </section>
 
         <section className="border border-press/35 bg-press/5 p-8 sm:p-12"><p className="font-mono text-xs uppercase tracking-[0.2em] text-press">Submissions</p><h2 className="mt-3 font-display text-3xl font-bold">Submit your work.</h2><p className="mt-4 max-w-2xl leading-relaxed text-ghost">We publish aligned authors. Not trends. Not algorithms. If your work serves the Living Earth, we want to read it.</p><Link href="/pillars/press/submissions" className="mt-7 inline-block border border-press px-5 py-3 font-mono text-xs uppercase tracking-[0.14em] text-press hover:bg-press hover:text-void">Submit a manuscript →</Link></section>
+        <PillarJourneyMap pillar="press" />
       </div>
     </div>
   );

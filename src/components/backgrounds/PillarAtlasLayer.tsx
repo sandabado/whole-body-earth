@@ -5,6 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { usePathname } from "next/navigation";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
+import { PILLARS, pillarForPath } from "@/lib/pillars";
 
 type SolidName = "tetrahedron" | "octahedron" | "icosahedron" | "cube" | "dodecahedron";
 
@@ -16,11 +17,9 @@ type AtlasTheme = {
 const CONSTELLATION_THEME: AtlasTheme = { color: "#b7b7c4", solid: "dodecahedron" };
 
 function themeFor(pathname: string): AtlasTheme {
-  if (pathname.startsWith("/pillars/presence")) return { color: "#d16b45", solid: "tetrahedron" };
-  if (pathname.startsWith("/pillars/press") || pathname === "/calendar") return { color: "#d4af37", solid: "octahedron" };
-  if (pathname.startsWith("/pillars/studios") || pathname === "/services") return { color: "#2ba8a0", solid: "icosahedron" };
-  if (pathname.startsWith("/pillars/foundation")) return { color: "#4a6741", solid: "cube" };
-  if (pathname.startsWith("/pillars/guardian")) return { color: "#8f5bff", solid: "dodecahedron" };
+  const pillar = pillarForPath(pathname);
+  if (pillar) return { color: PILLARS[pillar].color, solid: PILLARS[pillar].solid.toLowerCase() as SolidName };
+  if (pathname === "/calendar") return { color: PILLARS.press.color, solid: "octahedron" };
   return CONSTELLATION_THEME;
 }
 
@@ -33,7 +32,7 @@ function geometryFor(solid: SolidName) {
   return new THREE.DodecahedronGeometry(1);
 }
 
-function StarDust({ color }: { color: string }) {
+export function StarDust({ color }: { color: string }) {
   const ref = useRef<THREE.Points>(null);
   const geometry = useMemo(() => {
     let seed = 71923;
@@ -66,7 +65,7 @@ function StarDust({ color }: { color: string }) {
   </points>;
 }
 
-function AtlasConstruction({ color }: { color: string }) {
+export function AtlasConstruction({ color }: { color: string }) {
   const ref = useRef<THREE.Group>(null);
 
   useFrame((_state, delta) => {
