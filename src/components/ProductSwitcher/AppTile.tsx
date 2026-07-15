@@ -35,7 +35,7 @@ export default function AppTile({ app, index }: AppTileProps) {
         className={`group relative flex w-full items-center gap-4 border bg-carbon/80 px-4 py-4 text-left transition-all duration-200 ease-out sm:px-5 ${stateClasses}`}
         style={isHere ? { borderColor: app.brandColor, backgroundColor: `${app.brandColor}1a`, boxShadow: `0 0 18px ${app.brandColor}33` } : undefined}
       >
-        <span className={`flex h-11 w-11 shrink-0 items-center justify-center border font-display text-2xl ${app.name === "Whole Body Earth" ? "earth-portal-mark" : ""} ${isLocked ? "border-mercury" : ""}`} style={isLocked ? undefined : app.name === "Whole Body Earth" ? { borderColor: `${app.brandColor}99` } : { borderColor: `${app.brandColor}99`, color: app.brandColor }} aria-hidden="true">{app.icon}</span>
+        <span className={`flex h-11 w-11 shrink-0 items-center justify-center border font-display text-2xl ${isLocked ? "border-mercury" : ""}`} style={isLocked ? undefined : { borderColor: `${app.brandColor}99`, color: app.brandColor }} aria-hidden="true">{app.icon}</span>
         <span className="min-w-0 flex-1">
           <span className="block font-display text-sm font-semibold uppercase tracking-wide sm:text-base">{app.name}</span>
           <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.15em] text-ghost">{app.element}</span>

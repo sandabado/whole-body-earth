@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  VISITOR
+  ARTIST
+  ADMIN
+  FOUNDER
+
+  @@map("user_role")
+}
+
+enum ElementType {
+  studios
+  presence
+  foundation
+  press
+  law
+
+  @@map("element_type")
+}
+
+enum ApplicationStage {
+  WRITING
+  RECORDING
+  RELEASED
+  TOURING
+
+  @@map("application_stage")
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWING
+  INVITED
+  DECLINED
+  PARTNER
+
+  @@map("application_status")
+}
+
+enum ProjectType {
+  SINGLE
+  EP
+  ALBUM
+  FILM_SCORE
+  COMPILATION
+
+  @@map("project_type")
+}
+
+enum ProjectStatus {
+  DEVELOPMENT
+  RECORDING
+  MIXING
+  MASTERING
+  RELEASING
+  RELEASED
+
+  @@map("project_status")
+}
+
+enum RevenueSource {
+  SYNC
+  DISTRIBUTION
+  VINYL
+  SERVICE_FEE
+  STIPEND
+
+  @@map("revenue_source")
+}
+
+model User {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String        @unique
+  passwordHash String        @map("password_hash")
+  firstName    String?       @map("first_name")
+  lastName     String?       @map("last_name")
+  role         UserRole      @default(VISITOR)
+  elements     ElementType[] @default([])
+  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime?     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  applications Application[]
+  projects     Project[]
+
+  @@map("users")
+}
+
+model Application {
+  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId         String?           @map("user_id") @db.Uuid
+  artistName     String            @map("artist_name")
+  email          String
+  phone          String?
+  genre          String?
+  stage          ApplicationStage?
+  portfolioUrls  String[]          @map("portfolio_urls")
+  servicesNeeded String[]          @map("services_needed")
+  whatTheyBuild  String?           @map("what_they_build")
+  whyStudios     String?           @map("why_studios")
+  retainsIp      String?           @map("retains_ip")
+  consent        Boolean?          @default(false)
+  status         ApplicationStatus? @default(PENDING)
+  calendlyUrl    String?           @map("calendly_url")
+  reviewedAt     DateTime?         @map("reviewed_at") @db.Timestamptz(6)
+  createdAt      DateTime?         @default(now()) @map("created_at") @db.Timestamptz(6)
+  element        ElementType       @default(studios)
+  user           User?             @relation(fields: [userId], references: [id])
+
+  @@index([element])
+  @@index([status])
+  @@map("applications")
+}
+
+model Project {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  artistId     String?       @map("artist_id") @db.Uuid
+  element      ElementType   @default(studios)
+  title        String
+  type         ProjectType?
+  status       ProjectStatus? @default(DEVELOPMENT)
+  releaseDate  DateTime?     @map("release_date") @db.Date
+  assetUrl     String?       @map("asset_url")
+  syncEligible Boolean?      @default(true) @map("sync_eligible")
+  revenueTotal Decimal?      @default(0) @map("revenue_total") @db.Decimal(10, 2)
+  createdAt    DateTime?     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime?     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  artist       User?         @relation(fields: [artistId], references: [id])
+  revenue      RevenueEntry[]
+
+  @@index([element])
+  @@index([artistId])
+  @@map("projects")
+}
+
+model RevenueEntry {
+  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId     String?        @map("project_id") @db.Uuid
+  element       ElementType    @default(studios)
+  amount        Decimal        @db.Decimal(10, 2)
+  source        RevenueSource?
+  artistShare   Decimal?       @map("artist_share") @db.Decimal(10, 2)
+  guildShare    Decimal?       @map("guild_share") @db.Decimal(10, 2)
+  stipendShare  Decimal?       @map("stipend_share") @db.Decimal(10, 2)
+  infraShare    Decimal?       @map("infra_share") @db.Decimal(10, 2)
+  founderShare  Decimal?       @map("founder_share") @db.Decimal(10, 2)
+  createdAt     DateTime?      @default(now()) @map("created_at") @db.Timestamptz(6)
+  project       Project?       @relation(fields: [projectId], references: [id])
+
+  @@index([projectId])
+  @@map("revenue_entries")
+}

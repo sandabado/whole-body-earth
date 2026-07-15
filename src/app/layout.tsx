@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel, DM_Mono, Inter } from "next/font/google";
+import PillarAtlasLayer from "@/components/backgrounds/PillarAtlasLayer";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import "./globals.css";
@@ -53,9 +54,10 @@ export default function RootLayout({
       className={`${cinzel.variable} ${dmMono.variable} ${inter.variable}`}
     >
       <body className="flex min-h-screen flex-col">
+        <PillarAtlasLayer />
         <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <main className="relative z-10 flex-1">{children}</main>
+        <div className="relative z-10"><Footer /></div>
       </body>
     </html>
   );

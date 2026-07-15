@@ -9,7 +9,6 @@ export interface AppData {
 }
 
 export const constellationApps: AppData[] = [
-  { name: "Whole Body Earth", icon: "♁", element: "PORTAL", status: "ACTIVE", url: "/", subtitle: "Home", brandColor: PILLAR_BRANDS.constellation },
   { name: "Presence", icon: "🜂", element: "FIRE", status: "ACTIVE", url: "/pillars/presence", subtitle: "Circle", brandColor: PILLAR_BRANDS.presence },
   { name: "Foundation", icon: "🜃", element: "EARTH", status: "ACTIVE", url: "/pillars/foundation", subtitle: "Ground", brandColor: PILLAR_BRANDS.foundation },
   { name: "Press", icon: "🜁", element: "AIR", status: "ACTIVE", url: "/pillars/press", subtitle: "Library", brandColor: PILLAR_BRANDS.press },

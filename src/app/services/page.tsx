@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IcosahedronLayer } from "@/components/sections/IcosahedronLayer";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -63,7 +62,6 @@ export default function ServicesPage() {
   return (
     <div className="pb-20">
       <section className="relative overflow-hidden border-b border-mercury px-6 pt-16 pb-16">
-        <IcosahedronLayer />
         <div className="relative z-10 mx-auto max-w-[1200px]">
           <Badge variant="info" className="mb-6">ALL SERVICES · PRICING TRANSPARENCY · ZERO OWNERSHIP</Badge>
           <h1 className="mb-6 font-display text-4xl font-bold md:text-6xl">Services Built For<br /><span className="text-plasma">Artists Who Own Everything</span></h1>
