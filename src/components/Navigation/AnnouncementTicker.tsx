@@ -1,10 +1,7 @@
 import Link from "next/link";
 
 const announcements = [
-  "Sandabado — new music in the field",
-  "Whole Body Press opens Q4 2026",
-  "Presence circles begin Q1 2027",
-  "See the calendar for releases and gatherings",
+  "● NOW LIVE: SANDABADO — DEBUT ALBUM STREAMING · CODEX VOL. I–V AVAILABLE · WEEKLY CIRCLE EVERY TUESDAY ●",
 ];
 
 export default function AnnouncementTicker() {

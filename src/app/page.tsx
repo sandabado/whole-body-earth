@@ -5,11 +5,11 @@ import { HomePlatonicLayer } from "@/components/home/HomePlatonicLayer";
 const SECTION_SHELL = "relative flex min-h-[calc(100svh-7rem)] items-center overflow-hidden px-6 py-20 sm:py-24";
 
 const PILLARS = [
-  { id: "presence", mark: "🜂", name: "Presence", body: "Physical body", element: "Fire", solid: "Tetrahedron", tone: "#d16b45", color: "text-fire", description: "Embodiment, voice, and the physical practice of arriving.", feature: { label: "The embodied voice", title: "Somatic practice for the signal you carry.", text: "Breath, grounding, vocal activation, and a return to the physical vessel." }, tagline: "The shape of ignition.", paragraphs: ["Presence is the physical pillar: breath, movement, voice, boundaries, and the grounded intelligence of the body.", "Start with what is here. Feel your feet. Let the body lead."] },
-  { id: "press", mark: "🜁", name: "Press", body: "Mental body", element: "Air", solid: "Octahedron", tone: "#d4af37", color: "text-press", description: "Publishing, communication, and a signal that carries.", feature: { label: "Signal architecture", title: "A practice for your message.", text: "Clarify the idea, edit the noise, and make the work easy to find." }, tagline: "The shape that carries.", paragraphs: ["Press is the mental pillar: writing, speaking, publishing, and shaping a signal that travels without losing its source.", "Your mind does not need more noise. It needs a clear channel."] },
-  { id: "studios", mark: "🜄", name: "Studios", body: "Emotional body", element: "Water", solid: "Icosahedron", tone: "#2ba8a0", color: "text-water", description: "Creative flow, emotional intelligence, and relational art.", feature: { label: "Emotional cartography", title: "Creative work that lets feeling move.", text: "Colour mapping, relational practice, free creation, and a path into flow." }, tagline: "The shape that remembers.", paragraphs: ["Studios is the emotional pillar: art, feeling, relationship, and the creative current that makes a life feel alive.", "Make room for the feeling. Then make something with it."] },
-  { id: "foundation", mark: "🜃", name: "Foundation", body: "Spiritual body", element: "Earth", solid: "Cube", tone: "#4a6741", color: "text-earth", description: "Structure, systems, ritual, and the architecture of legacy.", feature: { label: "The root practice", title: "Structure that can hold your work.", text: "Build rituals, map your systems, and create the conditions for a lasting legacy." }, tagline: "The shape that endures.", paragraphs: ["Foundation is the spiritual pillar: systems, ritual, roots, and the durable structures that allow meaningful work to remain.", "Without a container, even a true vision spills away."] },
-  { id: "guardian", mark: "☉", name: "Guardian", body: "Ethereal body", element: "Ether", solid: "Dodecahedron", tone: "#8f5bff", color: "text-guardian", description: "The central axis: synthesis, facilitation, and holding space.", feature: { label: "The Guardian’s circle", title: "Integration for those who hold the whole.", text: "Facilitation, pattern recognition, integration, and practices for a centered presence." }, tagline: "The shape that holds.", paragraphs: ["Guardian is the ethereal center. It appears when your four outer bodies are in uncommon balance and you are called to hold a whole pattern.", "The center does not dominate. It makes coherence possible."] },
+  { id: "presence", mark: "🜂", name: "Presence", body: "Spiritual body · 4 faces", element: "Fire", solid: "Tetrahedron", tone: "#d16b45", color: "text-fire", description: "Fire is the circle that holds you. Weekly gatherings, monthly retreats, and rites of passage.", feature: { label: "The embodied voice", title: "Somatic practice for the signal you carry.", text: "Breath, grounding, vocal activation, and a return to the physical vessel." }, tagline: "The shape of ignition.", paragraphs: ["Fire is the circle that holds you. Weekly gatherings. Monthly retreats. Rites of passage. No hierarchy. No guru. Just belonging.", "The tetrahedron is the simplest solid. Four points. The minimum stable form. So is a circle — where everyone can be seen and no one sits at the head.", "You cannot endure alone. The Old World sold you independence as freedom. It was isolation dressed as strength. Presence is the return to the circle."] },
+  { id: "press", mark: "🜁", name: "Press", body: "Mental body · 8 faces", element: "Air", solid: "Octahedron", tone: "#d4af37", color: "text-press", description: "Books are technology: tools for transformation, not commodities.", feature: { label: "Signal architecture", title: "A practice for your message.", text: "Clarify the idea, edit the noise, and make the work easy to find." }, tagline: "The shape that carries.", paragraphs: ["Books are not commodities. They are technology. Tools for transformation. The Living Earth Codex — five volumes. One operating system. From the instrument to the spiral. From silence to manifestation.", "Authors retain 100% copyright and IP. 50/50 royalty split. The author eats first.", "Digital $22 each · Physical $77 each · Complete Codex $111 / $333 / $388"] },
+  { id: "studios", mark: "🜄", name: "Studios", body: "Emotional body · 20 faces", element: "Water", solid: "Icosahedron", tone: "#2ba8a0", color: "text-water", description: "Music and film are infrastructure — current and truth, never content.", feature: { label: "Emotional cartography", title: "Creative work that lets feeling move.", text: "Colour mapping, relational practice, free creation, and a path into flow." }, tagline: "The shape that remembers.", paragraphs: ["Music is infrastructure. Film is infrastructure. The song is current, not content. The image is truth, not entertainment.", "Artists retain 100% masters, publishing, and IP. We earn on production, distribution, and placement — never on ownership. The artist eats first."] },
+  { id: "foundation", mark: "🜃", name: "Foundation", body: "Physical body · 6 faces", element: "Earth", solid: "Hexahedron", tone: "#4a6741", color: "text-earth", description: "Rammed earth, off-grid, carbon negative: a place to stand that cannot be taken.", feature: { label: "The root practice", title: "Structure that can hold your work.", text: "Build rituals, map your systems, and create the conditions for a lasting legacy." }, tagline: "The shape that endures.", paragraphs: ["Rammed earth. Off-grid. Carbon negative. A place to stand that cannot be taken. The Tetrahedron Garden is planted and growing. The Quincunx Modular Dome is in design.", "The cube is the most stable form. Six faces. Equal pressure from all sides. Without ground, everything floats away.", "Phase 1: Tetrahedron Garden — Active Now · Phase 2: Quincunx Dome — In Planning"] },
+  { id: "guardian", mark: "☉", name: "Guardian", body: "Ethereal body · 12 faces", element: "Ether", solid: "Dodecahedron", tone: "#8f5bff", color: "text-guardian", description: "Sovereign systems and trust architecture for creators with something real to protect.", feature: { label: "The Guardian’s circle", title: "Integration for those who hold the whole.", text: "Facilitation, pattern recognition, integration, and practices for a centered presence." }, tagline: "The shape that holds.", paragraphs: ["Sovereign systems. Trust architecture. Asset protection. IP shielding. For creators with something real to protect. The container of all forms. The structure that ensures what you built outlasts you.", "Referral only. Minimum $50k/year revenue. The final gate."] },
 ] as const;
 
 export default function WholeBodyEarthHome() {
@@ -23,27 +23,33 @@ export default function WholeBodyEarthHome() {
           <p className="font-mono text-[10px] uppercase tracking-[.32em] text-press sm:text-xs">The Whole Body Constellation</p>
           <h1 className="mx-auto mt-5 max-w-4xl font-display text-5xl leading-[.94] font-semibold text-bone sm:text-6xl lg:text-7xl">Five Pillars. One Whole Body.</h1>
           <div className="mx-auto mt-6 max-w-3xl space-y-4 text-base leading-7 text-bone/78 sm:text-lg">
-            <p>Your birth chart reveals your design. Whole Body Earth maps you to one of five pillars — Presence, Press, Studios, Foundation, Guardian — then guides you to the practice, community, and work that fits your architecture.</p>
+            <p>You have five bodies. Mental. Physical. Emotional. Spiritual. Ethereal. Each one maps to an element. Each element maps to a geometric solid. Each solid is a pillar of work.</p>
+            <p>Wholebody.earth reads your birth chart and reveals which pillar is yours — then guides you to the practice, community, and work that fits your architecture.</p>
             <p className="text-bone/72">A network for sovereign creators.</p>
           </div>
-          <Link href="/reading" className="mt-8 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Get your reading →</Link>
-          <a href="#quincunx" className="hero-scroll-cue mx-auto mt-10 flex w-fit flex-col items-center gap-2 text-press">
-            <span className="font-mono text-[10px] uppercase tracking-[.24em]">Follow the constellation</span>
+          <Link href="/reading" className="mt-8 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Get Your Reading in 60 Seconds →</Link>
+          <a href="/catalog" className="hero-scroll-cue mx-auto mt-10 flex w-fit flex-col items-center gap-2 text-press">
+            <span className="font-mono text-[10px] uppercase tracking-[.24em]">Enter the Library</span>
             <span className="hero-scroll-cue-arrow flex h-10 w-6 items-center justify-center border border-press/55 text-xl">↓</span>
           </a>
+          <p className="mt-7 font-mono text-[10px] uppercase tracking-[.16em] text-bone/75">🟢 Presence Active&nbsp;&nbsp;&nbsp; 🟢 Press Active&nbsp;&nbsp;&nbsp; 🟢 Studios Active<br className="sm:hidden" /> <span className="hidden sm:inline">&nbsp;&nbsp;&nbsp;</span>🟡 Foundation 2027&nbsp;&nbsp;&nbsp; 🔒 Guardian Soon</p>
         </div>
       </section>
 
       <section id="quincunx" className={SECTION_SHELL}>
         <div className="relative mx-auto max-w-3xl text-center [text-shadow:0_2px_20px_rgba(0,0,0,.9)]">
           <div className="mx-auto h-px w-16 bg-press/35" />
-          <p className="mt-8 font-mono text-[10px] uppercase tracking-[.28em] text-press">The Quincunx</p>
-          <h2 className="mt-4 font-display text-4xl text-press sm:text-5xl">You are made of the elements.</h2>
-          <div className="mt-6 space-y-5 text-lg leading-8 text-bone/80">
-            <p>Physical, mental, emotional, and spiritual bodies move around an ethereal center. Your chart shows their relative weight — and the center illuminates when your system holds in balance.</p>
-            <p>Whole Body turns that pattern into a real practice: embodiment, signal, creative flow, structure, or synthesis.</p>
+          <p className="mt-8 font-mono text-[10px] uppercase tracking-[.28em] text-press">The Five Bodies</p>
+          <h2 className="mt-4 font-display text-4xl text-press sm:text-5xl">You are not one thing. You are five forces held in one form.</h2>
+          <div className="mt-6 space-y-3 text-left text-lg leading-8 text-bone/80">
+            <p><strong className="text-bone">Spiritual</strong> — Fire. The drive to gather. The spark that says: you are not alone.</p>
+            <p><strong className="text-bone">Mental</strong> — Air. The breath that carries words. The structure that turns thought into technology.</p>
+            <p><strong className="text-bone">Emotional</strong> — Water. The memory that shapes who you become. The song that finds every crack.</p>
+            <p><strong className="text-bone">Physical</strong> — Earth. The ground beneath what you build. The structure that outlasts you.</p>
+            <p><strong className="text-bone">Ethereal</strong> — Ether. The space that holds it all. The silence between notes. The container of all forms.</p>
+            <p className="pt-3 text-center">Five elements. Five Platonic solids. Five pillars of work. Each pillar is a part of you. Your reading reveals which one is yours.</p>
           </div>
-          <Link href="/reading" className="mt-9 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Get your Whole Body Reading →</Link>
+          <Link href="/reading" className="mt-9 inline-block bg-fire px-6 py-3 font-mono text-xs uppercase tracking-[.14em] text-void shadow-[0_0_24px_rgba(209,107,69,.38)] transition hover:bg-fire/85">Take the Reading →</Link>
         </div>
       </section>
 
@@ -66,6 +72,18 @@ export default function WholeBodyEarthHome() {
           <div className="mt-12 grid gap-5 text-left sm:grid-cols-2 lg:grid-cols-5">
             {PILLARS.map((pillar) => <PillarCard key={pillar.id} pillar={pillar} />)}
           </div>
+        </div>
+      </section>
+
+      <section className="relative border-t border-mercury bg-carbon px-6 py-20 sm:py-24">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-center font-mono text-[10px] uppercase tracking-[.3em] text-press">The Feed First Algorithm</p>
+          <h2 className="mt-4 text-center font-display text-4xl text-bone sm:text-5xl">The creator eats before the platform. Always.</h2>
+          <p className="mx-auto mt-7 max-w-2xl text-center text-lg leading-8 text-bone/80">Every dollar earned across the Constellation flows through the Feed First Algorithm.</p>
+          <div className="mt-10 divide-y divide-mercury border-y border-mercury">
+            {["35–40% — Creator Royalty Pool — Split among active creators", "20–25% — Guild Treasury — Equipment, editorial, studio, infrastructure", "20% — Guaranteed Stipend — Monthly minimum for active partners", "12–15% — Distribution & Infrastructure — Platform, hosting, software", "5–8% — Founder Allocation — Leadership compensation"].map((item) => <p key={item} className="px-4 py-4 font-mono text-xs uppercase tracking-[.08em] text-bone/80 sm:px-6">{item}</p>)}
+          </div>
+          <p className="mx-auto mt-10 max-w-3xl text-center text-lg leading-8 text-bone/80">The Old World turned creativity into extraction. The publisher owns the words. The label owns the masters. The platform controls distribution. The creator rents their own voice. We invert this.</p>
         </div>
       </section>
     </main>

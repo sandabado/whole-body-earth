@@ -154,15 +154,17 @@ function Solid({
   position = [0, 0, 0],
   scale = 2.2,
   alwaysVisible = false,
+  colorOverride,
 }: {
   name: SolidName;
   position?: [number, number, number];
   scale?: number;
   alwaysVisible?: boolean;
+  colorOverride?: string;
 }) {
   const ref = useRef<THREE.Group>(null);
   const geometry = useMemo(() => solidGeometry(name), [name]);
-  const color = SOLID_COLORS[name];
+  const color = colorOverride ?? SOLID_COLORS[name];
 
   useFrame((_state, delta) => {
     if (!ref.current) return;
@@ -176,15 +178,15 @@ function Solid({
         <meshStandardMaterial
           color={color}
           emissive={color}
-          emissiveIntensity={0.55}
-          opacity={alwaysVisible ? 0.38 : 0.24}
+          emissiveIntensity={alwaysVisible ? 3.4 : 0.55}
+          opacity={alwaysVisible ? 0.92 : 0.24}
           transparent
           roughness={0.3}
           metalness={0.4}
           depthTest={!alwaysVisible}
           depthWrite={!alwaysVisible}
         />
-        <Edges color={color} opacity={1} transparent depthTest={!alwaysVisible} renderOrder={alwaysVisible ? 6 : 0} />
+        <Edges color={alwaysVisible ? "#fff0f8" : color} opacity={1} transparent depthTest={!alwaysVisible} renderOrder={alwaysVisible ? 6 : 0} />
       </mesh>
     </group>
   </Float>;
@@ -275,7 +277,10 @@ function Scene({ active, heroEarth }: { active: SceneName; heroEarth: boolean })
   if (active === "logo") return <LogoMark />;
   if (active !== "all") {
     const isHeroDodecahedron = heroEarth && active === "dodecahedron";
-    return <Solid name={active} scale={isHeroDodecahedron ? 0.825 : 2.2} alwaysVisible={isHeroDodecahedron} />;
+    return <>
+      {isHeroDodecahedron ? <pointLight position={[0, 0, 2.5]} color="#ff9dcb" intensity={4.2} distance={8} /> : null}
+      <Solid name={active} scale={isHeroDodecahedron ? 1.18 : 2.2} alwaysVisible={isHeroDodecahedron} colorOverride={isHeroDodecahedron ? "#ff4fa3" : undefined} />
+    </>;
   }
   return <>
     <Solid name="tetrahedron" position={[-2.5, 1.45, 0]} scale={0.9} />
