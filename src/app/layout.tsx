@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cinzel, DM_Mono, Inter } from "next/font/google";
 import PillarAtlasLayer from "@/components/backgrounds/PillarAtlasLayer";
+import { EventDrawer } from "@/components/Navigation/EventDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import "./globals.css";
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col">
         <PillarAtlasLayer />
         <Header />
+        <EventDrawer />
         <main className="relative z-10 flex-1">{children}</main>
         <div className="relative z-10"><Footer /></div>
       </body>

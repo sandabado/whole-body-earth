@@ -57,14 +57,14 @@ export default function AccountMenu() {
       {user ? <>
         <div className="border-b border-mercury px-3 py-3"><p className="font-mono text-[9px] uppercase tracking-[0.16em] text-ghost">Signed in as</p><p className="mt-1 truncate text-sm text-bone">{user.email}</p></div>
         <MenuLink href="/account" onNavigate={() => setOpen(false)}>Your profile</MenuLink>
-        <MenuLink href="/catalog" onNavigate={() => setOpen(false)}>Your library</MenuLink>
+        <MenuLink href="/store" onNavigate={() => setOpen(false)}>Your orders</MenuLink>
         <MenuLink href="/apply" onNavigate={() => setOpen(false)}>Applications</MenuLink>
         <button type="button" onClick={signOut} className={menuItemClass}>Sign out</button>
       </> : <>
-        <div className="border-b border-mercury px-3 py-3"><p className="font-mono text-[9px] uppercase tracking-[0.16em] text-ghost">Account access</p><p className="mt-1 text-sm text-bone">Your library, applications, and constellation.</p></div>
+        <div className="border-b border-mercury px-3 py-3"><p className="font-mono text-[9px] uppercase tracking-[0.16em] text-ghost">Account access</p><p className="mt-1 text-sm text-bone">Your orders, library, applications, and constellation.</p></div>
         <MenuLink href="/login" onNavigate={() => setOpen(false)}>Sign in</MenuLink>
         <MenuLink href="/login" onNavigate={() => setOpen(false)}>Create account</MenuLink>
-        <MenuLink href="/catalog" onNavigate={() => setOpen(false)}>Browse the library</MenuLink>
+        <MenuLink href="/store" onNavigate={() => setOpen(false)}>Browse the store</MenuLink>
       </>}
     </div>}
   </div>;

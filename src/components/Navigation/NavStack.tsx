@@ -65,7 +65,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           <button type="button" onClick={onClose} className="flex min-h-11 min-w-11 items-center justify-center text-bone transition-colors hover:text-water focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-water" aria-label="Close navigation"><svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="square" strokeWidth="2" d="M6 6l12 12M18 6 6 18" /></svg></button>
         </div>
         <nav className="divide-y divide-mercury" aria-label="Mobile navigation">
-          <div className="py-3"><DrawerLink href="/catalog" onClose={onClose}>Library</DrawerLink><DrawerLink href="/login" onClose={onClose}>Login</DrawerLink></div>
+          <div className="py-3"><DrawerLink href="/store" onClose={onClose}>Store</DrawerLink><DrawerLink href="/careers" onClose={onClose}>Careers</DrawerLink><DrawerLink href="/login" onClose={onClose}>Login</DrawerLink></div>
           <div className="py-3">{mainLinks.map((link) => <DrawerLink key={link.label} href={link.href} onClose={onClose}>{link.label}</DrawerLink>)}<Link href="/apply" onClick={onClose} className="mt-3 block border border-water bg-water px-3 py-3 text-center font-mono text-[10px] uppercase tracking-[0.12em] text-void">Apply →</Link></div>
           <button type="button" className="w-full px-3 py-5 text-left font-mono text-[10px] uppercase tracking-[0.12em] text-water">Switch Pillar ▾</button>
         </nav>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/Textarea";
 import {
   APPLICATION_PILLARS,
   APPLICATION_PILLAR_IDS,
+  isApplicationPillar,
   type ApplicationPillar,
 } from "@/lib/application-pillars";
 
@@ -56,6 +57,15 @@ export default function ApplyPage() {
   >({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const requestedPillar = new URLSearchParams(window.location.search).get("pillar");
+    if (!requestedPillar || !isApplicationPillar(requestedPillar)) return;
+    const frame = window.requestAnimationFrame(() => {
+      setForm((previous) => previous.pillar === requestedPillar ? previous : { ...previous, pillar: requestedPillar });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   const handleChange = <K extends keyof FormState>(
     field: K,

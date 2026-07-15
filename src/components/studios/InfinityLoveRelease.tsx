@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
+import { MEDIA_ATLAS } from "@/lib/media-atlas";
 
 type InfinityLoveReleaseProps = {
   variant?: "home" | "studios";
@@ -20,7 +21,7 @@ export function InfinityLoveRelease({ variant = "home" }: InfinityLoveReleasePro
       <div className={isStudios ? "relative p-4 md:p-6" : "relative grid min-h-[31rem] sm:grid-cols-[.94fr_1.06fr]"}>
         <div className={isStudios ? "relative aspect-square overflow-hidden bg-void" : "relative min-h-[18rem] overflow-hidden bg-void sm:min-h-full"}>
           <Image
-            src="/images/releases/sandabado-infinity-love.png"
+            src={MEDIA_ATLAS.studios.infinityLove}
             alt="Sandābādo — ∞ Love album artwork"
             fill
             priority={!isStudios}

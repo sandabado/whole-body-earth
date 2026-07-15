@@ -156,3 +156,150 @@ model RevenueEntry {
   @@index([projectId])
   @@map("revenue_entries")
 }
+
+// Shared commerce records for the Whole Body Earth Store. These are intentionally
+// pillar-aware rather than scoped to any one product surface.
+model Product {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  type        String
+  pillar      String
+  description String?
+  priceCents  Int?      @map("price_cents")
+  imageUrl    String?   @map("image_url")
+  status      String    @default("draft")
+  featured    Boolean   @default(false)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([pillar, featured, status, createdAt])
+  @@map("products")
+}
+
+model Book {
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title             String
+  slug              String    @unique
+  volumeNumber      Int?      @map("volume_number")
+  author            String?
+  description       String?
+  digitalPriceCents Int?      @map("digital_price_cents")
+  physicalPriceCents Int?     @map("physical_price_cents")
+  imageUrl          String?   @map("image_url")
+  status            String    @default("forthcoming")
+  featured          Boolean   @default(false)
+  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([featured, status, createdAt])
+  @@map("books")
+}
+
+model Purchase {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId      String?   @map("user_id") @db.Uuid
+  productType String    @map("product_type")
+  productId   String?   @map("product_id") @db.Uuid
+  status      String    @default("pending")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([productId])
+  @@index([userId])
+  @@map("purchases")
+}
+
+model Testimonial {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  quote        String
+  authorName   String    @map("author_name") @db.VarChar(100)
+  houseNumber  Int?      @map("house_number")
+  pillar       String
+  avatarUrl    String?   @map("avatar_url")
+  role         String?   @db.VarChar(100)
+  joinedDate   DateTime? @map("joined_date") @db.Date
+  featured     Boolean   @default(false)
+  status       String    @default("active") @db.VarChar(20)
+  displayOrder Int       @default(0) @map("display_order")
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([status, displayOrder, createdAt])
+  @@map("testimonials")
+}
+
+model PillarActivity {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug        String    @unique
+  pillar      String
+  kind        String
+  title       String
+  kicker      String
+  summary     String
+  href        String
+  ctaLabel    String    @map("cta_label")
+  startsAt    DateTime? @map("starts_at") @db.Timestamptz(6)
+  endsAt      DateTime? @map("ends_at") @db.Timestamptz(6)
+  priority    Int       @default(0)
+  status      String    @default("draft")
+  publishedAt DateTime? @map("published_at") @db.Timestamptz(6)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@index([pillar, status, priority, startsAt])
+  @@map("pillar_activities")
+}
+
+model JobPosting {
+  id               String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title            String           @db.VarChar(200)
+  slug             String           @unique @db.VarChar(200)
+  department       String?          @db.VarChar(100)
+  pillar           String?          @db.VarChar(50)
+  type             String?          @db.VarChar(50)
+  location         String?          @db.VarChar(100)
+  remote           Boolean          @default(true)
+  compensation     String?          @db.VarChar(100)
+  description      String
+  responsibilities String[]         @default([])
+  requirements     String[]         @default([])
+  niceToHave       String[]         @default([]) @map("nice_to_have")
+  benefits         String[]         @default([])
+  status           String           @default("draft") @db.VarChar(20)
+  postedDate       DateTime?        @map("posted_date") @db.Timestamptz(6)
+  closingDate      DateTime?        @map("closing_date") @db.Timestamptz(6)
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime         @default(now()) @map("updated_at") @db.Timestamptz(6)
+  applications     JobApplication[]
+
+  @@index([status])
+  @@map("job_postings")
+}
+
+model JobApplication {
+  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  jobId          String      @map("job_id") @db.Uuid
+  userId         String?     @map("user_id") @db.Uuid
+  fullName       String      @map("full_name") @db.VarChar(200)
+  email          String      @db.VarChar(200)
+  phone          String?     @db.VarChar(50)
+  location       String?     @db.VarChar(200)
+  linkedinUrl    String?     @map("linkedin_url")
+  portfolioUrl   String?     @map("portfolio_url")
+  websiteUrl     String?     @map("website_url")
+  coverLetter    String?     @map("cover_letter")
+  resumeUrl      String?     @map("resume_url")
+  additionalFiles String[]   @default([]) @map("additional_files")
+  hasReading     Boolean     @default(false) @map("has_reading")
+  houseNumber    Int?        @map("house_number")
+  element        String?     @db.VarChar(50)
+  pillar         String?     @db.VarChar(50)
+  status         String      @default("submitted") @db.VarChar(20)
+  adminNotes     String?     @map("admin_notes")
+  interviewStage String?     @map("interview_stage") @db.VarChar(50)
+  referredBy     String?     @map("referred_by") @db.VarChar(200)
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime    @default(now()) @map("updated_at") @db.Timestamptz(6)
+  job            JobPosting  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([jobId])
+  @@index([status])
+  @@index([email])
+  @@map("job_applications")
+}

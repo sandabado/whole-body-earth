@@ -71,7 +71,7 @@ export default function CalendarPage() {
         </div>
       </section>
 
-      <section className="px-6 pb-8">
+      <section id="scheduling" className="px-6 pb-8">
         <div className="mx-auto max-w-[1200px] border border-mercury bg-carbon p-7 md:flex md:items-center md:justify-between md:gap-10 md:p-10">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.17em] text-water">Scheduling</p>

@@ -1,20 +1,20 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Edges, Float } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { mesh } from "topojson-client";
 import * as THREE from "three";
 import landAtlas from "world-atlas/land-110m.json";
-import { StarDust } from "@/components/backgrounds/PillarAtlasLayer";
+import { PlatonicEdges } from "@/components/backgrounds/PlatonicEdges";
 
 type SolidName = "tetrahedron" | "octahedron" | "icosahedron" | "cube" | "dodecahedron";
-type SceneName = SolidName | "all" | "logo";
+type SceneName = SolidName | "all" | "logo" | "none";
 type Coordinate = [longitude: number, latitude: number];
 type Point2D = [x: number, y: number];
 
-const sectionIds = ["hero", "quincunx", "presence", "press", "studios", "foundation", "guardian", "reading"];
-const scenes: SceneName[] = ["dodecahedron", "logo", "tetrahedron", "octahedron", "icosahedron", "cube", "dodecahedron", "all"];
+const sectionIds = ["hero", "five-bodies", "presence", "press", "studios", "foundation", "guardian", "apply"];
+const scenes: SceneName[] = ["dodecahedron", "logo", "tetrahedron", "octahedron", "icosahedron", "cube", "dodecahedron", "none"];
 const HERO_EARTH_RADIUS = 2.05;
 const LOGO_DIAMOND_RADIUS = 0.88;
 const LOGO_DIAMOND_OFFSET = LOGO_DIAMOND_RADIUS * 2;
@@ -31,11 +31,6 @@ const SOLID_COLORS: Record<SolidName, string> = {
   cube: "#4a6741",
   dodecahedron: "#8f5bff",
 };
-
-function atlasColor(scene: SceneName) {
-  if (scene === "logo" || scene === "all") return "#b7b7c4";
-  return scene === "dodecahedron" ? "#ff4fa3" : SOLID_COLORS[scene];
-}
 
 function solidGeometry(name: SolidName) {
   // Detail levels must remain zero: higher levels project the faces toward a sphere,
@@ -85,7 +80,7 @@ function LogoInsetSolid({ name, position, color }: { name: SolidName; position: 
 
   return <mesh ref={ref} geometry={geometry} position={position} scale={0.31} renderOrder={2}>
     <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} opacity={0.48} transparent metalness={0.42} roughness={0.28} />
-    <Edges color={color} opacity={1} transparent />
+    <PlatonicEdges geometry={geometry} color={color} opacity={1} renderOrder={3} />
   </mesh>;
 }
 
@@ -137,7 +132,7 @@ function Solid({
     <group ref={ref} position={position} scale={scale}>
       <mesh geometry={geometry} renderOrder={alwaysVisible ? 5 : 0}>
         {alwaysVisible ? <meshBasicMaterial color={color} transparent opacity={0.98} depthTest={false} depthWrite={false} toneMapped={false} /> : <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.55} opacity={0.24} transparent roughness={0.3} metalness={0.4} depthWrite={false} />}
-        <Edges color={alwaysVisible ? "#fff5fb" : color} opacity={1} transparent depthTest={false} depthWrite={false} renderOrder={alwaysVisible ? 6 : 1} />
+        <PlatonicEdges geometry={geometry} color={alwaysVisible ? "#fff5fb" : color} opacity={alwaysVisible ? 1 : 0.94} renderOrder={alwaysVisible ? 6 : 1} />
       </mesh>
     </group>
   </Float>;
@@ -225,6 +220,7 @@ function EarthWireframe() {
 }
 
 function Scene({ active, heroEarth }: { active: SceneName; heroEarth: boolean }) {
+  if (active === "none") return null;
   if (active === "logo") return <LogoMark />;
   if (active !== "all") {
     const isHeroDodecahedron = heroEarth && active === "dodecahedron";
@@ -265,15 +261,14 @@ export default function HomePlatonicBackground() {
     };
   }, []);
 
-  return <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-void">
+  return <><div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-void">
     <Canvas camera={{ position: [0, 0, 8], fov: 48 }} dpr={[1, 1.5]}>
-      <StarDust color={atlasColor(scenes[sceneIndex])} />
       <ambientLight intensity={0.45} />
       <pointLight position={[5, 6, 5]} intensity={1.4} color="#f4e0a6" />
       <pointLight position={[-5, -4, 3]} intensity={0.7} color="#fda4d4" />
       <Scene active={scenes[sceneIndex]} heroEarth={sceneIndex === 0} />
       {sceneIndex === 0 ? <EarthWireframe /> : null}
     </Canvas>
-    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,.3),rgba(5,5,5,.68)_72%,#050505)]" />
-  </div>;
+  </div>
+  </>;
 }

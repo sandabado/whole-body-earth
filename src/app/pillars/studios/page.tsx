@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { InfinityLoveRelease } from "@/components/studios/InfinityLoveRelease";
+import { MEDIA_ATLAS } from "@/lib/media-atlas";
 
 const metrics = [
   {
@@ -40,7 +41,7 @@ const roster = [
   {
     title: "Sandābādo",
     subtitle: "Featured artist · ∞ Love",
-    image: "/images/releases/sandabado-infinity-love.png",
+    image: MEDIA_ATLAS.studios.infinityLove,
     label: "Featured release",
   },
   {
@@ -63,7 +64,7 @@ const releases = [
   {
     title: "∞ Love",
     subtitle: "Sandābādo · Album",
-    image: "/images/releases/sandabado-infinity-love.png",
+    image: MEDIA_ATLAS.studios.infinityLove,
     label: "Featured",
   },
   {
@@ -77,13 +78,13 @@ const spaces = [
   {
     title: "Desert Studio",
     subtitle: "Tracking · Morongo Valley, CA",
-    image: "/images/studio/desert-session.png",
+    image: MEDIA_ATLAS.studios.desertSession,
     label: "Field recording",
   },
   {
     title: "Mix & Master",
     subtitle: "Stereo, spatial, and vinyl-ready masters",
-    image: "/images/studio/objects-session.png",
+    image: MEDIA_ATLAS.studios.objectsSession,
     label: "Post-production",
   },
   {
@@ -97,7 +98,7 @@ const elements = [
   { symbol: "🜁", label: "Press", href: "/pillars/press" },
   { symbol: "🜄", label: "Studios", href: "/pillars/studios", active: true },
   { symbol: "🜃", label: "Foundation", href: "/pillars/foundation" },
-  { symbol: "☉", label: "Guardian", href: "/legal/terms" },
+  { symbol: "☉", label: "Guardian", href: "/pillars/guardian" },
 ];
 
 export default function StudiosPage() {
