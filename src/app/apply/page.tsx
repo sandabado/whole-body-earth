@@ -320,7 +320,7 @@ export default function ApplyPage() {
                         key={stage}
                         type="button"
                         onClick={() => handleChange("stage", stage)}
-                        className={`rounded-[2px] px-4 py-2 font-mono text-sm transition-colors ${form.stage === stage ? "text-void" : "bg-mercury/20 text-ghost hover:text-bone"}`}
+                        className={`rounded-xl px-4 py-2 font-mono text-sm transition-colors ${form.stage === stage ? "text-void" : "bg-mercury/20 text-ghost hover:text-bone"}`}
                         style={
                           form.stage === stage
                             ? { backgroundColor: selectedPillar.color }
@@ -376,7 +376,7 @@ export default function ApplyPage() {
                     {selectedPillar.services.map((service) => (
                       <label
                         key={service}
-                        className={`flex cursor-pointer items-center gap-3 rounded-[2px] border p-3 transition-colors ${form.servicesNeeded.includes(service) ? "bg-mercury/30" : "border-mercury bg-mercury/20"}`}
+                        className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition-colors ${form.servicesNeeded.includes(service) ? "bg-mercury/30" : "border-mercury bg-mercury/20"}`}
                         style={
                           form.servicesNeeded.includes(service)
                             ? { borderColor: selectedPillar.color }
@@ -490,7 +490,7 @@ export default function ApplyPage() {
                       </div>
                     )}
                     <label
-                      className={`flex cursor-pointer items-start gap-3 rounded-[2px] border p-4 ${errors.consent ? "border-red-500 bg-red-500/10" : "border-mercury bg-mercury/20"}`}
+                      className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 ${errors.consent ? "border-red-500 bg-red-500/10" : "border-mercury bg-mercury/20"}`}
                     >
                       <input
                         type="checkbox"
@@ -516,7 +516,7 @@ export default function ApplyPage() {
                 {errors.submission && (
                   <p
                     role="alert"
-                    className="rounded-[2px] border border-red-500 bg-red-500/10 p-4 text-center text-sm text-red-300"
+                    className="rounded-xl border border-red-500 bg-red-500/10 p-4 text-center text-sm text-red-300"
                   >
                     {errors.submission}
                   </p>

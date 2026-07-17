@@ -37,6 +37,9 @@ ALTER TABLE public.rsvps ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.purchases ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.visits ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Public reads active events" ON public.events;
+DROP POLICY IF EXISTS "Public reads published books" ON public.books;
+DROP POLICY IF EXISTS "Public reads active products" ON public.products;
 CREATE POLICY "Public reads active events" ON public.events FOR SELECT TO anon, authenticated USING (status = 'active');
 CREATE POLICY "Public reads published books" ON public.books FOR SELECT TO anon, authenticated USING (status IN ('available', 'forthcoming'));
 CREATE POLICY "Public reads active products" ON public.products FOR SELECT TO anon, authenticated USING (status = 'active');
@@ -52,14 +55,14 @@ RETURNS INTEGER LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS
 $$;
 
 CREATE OR REPLACE FUNCTION public.homepage_activity(limit_count INTEGER DEFAULT 10)
-RETURNS TABLE (pillar TEXT, icon TEXT, action TEXT, timestamp TIMESTAMPTZ)
+RETURNS TABLE (pillar TEXT, icon TEXT, action TEXT, occurred_at TIMESTAMPTZ)
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public AS $$
   SELECT * FROM (
-    SELECT 'presence'::TEXT, '🜂'::TEXT, 'New RSVP for an event'::TEXT, created_at FROM public.rsvps WHERE status = 'confirmed'
+    SELECT 'presence'::TEXT AS pillar, '🜂'::TEXT AS icon, 'New RSVP for an event'::TEXT AS action, created_at AS occurred_at FROM public.rsvps WHERE status = 'confirmed'
     UNION ALL SELECT CASE product_type WHEN 'book' THEN 'press' ELSE 'studios' END, CASE product_type WHEN 'book' THEN '🜁' ELSE '🜄' END, product_type || ' purchased', created_at FROM public.purchases WHERE status = 'confirmed'
     UNION ALL SELECT CASE element WHEN 'law' THEN 'guardian' ELSE element::TEXT END, '✦', 'New application submitted', created_at FROM public.applications
     UNION ALL SELECT 'foundation', '🜃', 'Garden visit requested', created_at FROM public.visits
-  ) activity ORDER BY timestamp DESC LIMIT greatest(1, least(limit_count, 25));
+  ) activity ORDER BY activity.occurred_at DESC LIMIT greatest(1, least(limit_count, 25));
 $$;
 
 REVOKE ALL ON FUNCTION public.homepage_rsvp_count(UUID) FROM PUBLIC;

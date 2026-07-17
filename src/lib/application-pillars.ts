@@ -69,6 +69,7 @@ export const APPLICATION_PILLARS = {
       "Mixing / Mastering",
       "Distribution",
       "Sync Licensing",
+      "Artist Booking & Events",
       "Artist Development",
       "Film Scoring",
     ],

@@ -11,7 +11,7 @@ import type { PillarSectionData } from "./data/pillar-section-data";
 const gardenFrames = [MEDIA_ATLAS.foundation.gardenSun, MEDIA_ATLAS.foundation.gardenEmber, MEDIA_ATLAS.foundation.gardenDawn];
 
 export function PillarMediaDeck({ item, color }: { item: PillarSectionData; color: string }) {
-  const common = "relative order-1 overflow-hidden border bg-void/32 shadow-[0_22px_68px_rgba(0,0,0,.28)] backdrop-blur-md";
+  const common = "relative overflow-hidden rounded-2xl border bg-void/32 shadow-[0_22px_68px_rgba(0,0,0,.28)] backdrop-blur-md";
   if (item.media === "garden") return <GardenDeck className={common} color={color} />;
   if (item.media === "books") return <BookDeck className={common} color={color} />;
   if (item.media === "album") return <MusicDeck className={common} color={color} />;

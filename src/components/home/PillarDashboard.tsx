@@ -12,7 +12,7 @@ const gardenFrames = [
   "/images/foundation/tetrahedron-garden-dawn.png",
 ];
 
-const board = "grid min-h-[23rem] grid-cols-6 grid-rows-4 gap-px overflow-hidden border bg-void/30 p-px shadow-[0_22px_70px_rgba(0,0,0,.26)] backdrop-blur-md";
+const board = "grid min-h-[23rem] grid-cols-6 grid-rows-4 gap-px overflow-hidden rounded-2xl border bg-void/30 p-px shadow-[0_22px_70px_rgba(0,0,0,.26)] backdrop-blur-md";
 const tile = "relative overflow-hidden bg-void/34 p-4 transition hover:bg-void/55";
 const label = "font-mono text-[10px] uppercase tracking-[.14em]";
 const heading = "font-display text-3xl font-medium leading-none text-bone";

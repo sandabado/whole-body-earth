@@ -26,7 +26,7 @@ export function Badge({
     <span
       {...props}
       className={cn(
-        "inline-flex max-w-full flex-wrap items-center justify-center gap-1 rounded-[2px] border-2 px-3 py-1 text-center font-mono text-xs leading-relaxed uppercase tracking-wider",
+        "inline-flex max-w-full flex-wrap items-center justify-center gap-1 rounded-full border-2 px-3 py-1 text-center font-mono text-xs leading-relaxed uppercase tracking-wider",
         variants[variant],
         className,
       )}

@@ -21,8 +21,8 @@ export default function AnnouncementTicker() {
 
   return (
     <Link
-      href="/calendar"
-      className="group hidden h-5 min-w-0 max-w-[23rem] flex-1 items-center border-r border-mercury pr-3 text-[9px] text-ghost transition-colors hover:text-bone lg:flex"
+      href="/events"
+      className="group hidden h-5 min-w-0 max-w-[23rem] items-center border-x border-mercury px-3 text-[9px] text-ghost transition-colors hover:text-bone lg:flex"
       aria-label="View the Whole Body calendar: releases and gatherings"
     >
       <span className="shrink-0 bg-void pr-2 font-mono uppercase tracking-[0.16em] text-press">Live</span>

@@ -48,7 +48,7 @@ export function Button(props: ButtonProps | ChildButtonProps) {
     ...rest
   } = props;
   const buttonClasses = cn(
-    "inline-flex items-center justify-center gap-2 rounded-[2px] font-semibold transition-all duration-200",
+    "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200",
     "focus:outline-none focus:ring-2 focus:ring-plasma focus:ring-offset-2 focus:ring-offset-void",
     variants[variant],
     sizes[size],

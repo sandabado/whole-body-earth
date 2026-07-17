@@ -49,6 +49,17 @@ const SERVICES = [
     cta: "Start Distribution",
     href: "/apply#services-needed",
   },
+  {
+    id: "booking-events",
+    icon: "✦",
+    title: "Artist Booking & Events",
+    subtitle: "Live opportunities, thoughtful programming, and clear coordination",
+    description: ["Strategic booking for shows, tours, and showcases", "Venue, festival, and promoter outreach", "Event programming and artist curation", "Offer coordination, contracts, and show advancing"],
+    pricing: "15% of confirmed booking fee",
+    retain: "You approve every offer and keep control of your live work",
+    cta: "Discuss Booking & Events",
+    href: "/apply#services-needed",
+  },
 ];
 
 const FAQS = [
@@ -78,7 +89,7 @@ export default function ServicesPage() {
               <p className="mb-4 font-mono text-sm text-ghost">{service.subtitle}</p>
               <ul className="mb-6 flex-1 space-y-2">{service.description.map((item) => <li key={item} className="flex items-start gap-2 text-ghost"><span className="mt-1 text-flux">▸</span><span>{item}</span></li>)}</ul>
               <div className="mb-4 border-t border-mercury pt-4"><p className="mb-1 font-mono text-xs uppercase tracking-wider text-plasma">Pricing</p><p className="font-semibold text-bone">{service.pricing}</p></div>
-              <div className="mb-4 rounded-[2px] bg-carbon/50 p-3"><p className="font-mono text-xs text-flux">✓ {service.retain}</p></div>
+              <div className="mb-4 rounded-xl bg-carbon/50 p-3"><p className="font-mono text-xs text-flux">✓ {service.retain}</p></div>
               <Button asChild variant="outline" className="w-full"><Link href={service.href}>{service.cta} →</Link></Button>
             </Card>
           ))}
@@ -94,7 +105,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="px-6 py-20"><div className="mx-auto max-w-[800px]"><h2 className="mb-10 text-center font-display text-3xl font-bold">Common Questions</h2><div className="space-y-6">{FAQS.map(([question, answer]) => <div key={question} className="rounded-[2px] border border-mercury p-6 transition-colors hover:border-plasma"><h3 className="mb-2 font-display text-lg font-bold">{question}</h3><p className="leading-relaxed text-ghost">{answer}</p></div>)}</div></div></section>
+      <section className="px-6 py-20"><div className="mx-auto max-w-[800px]"><h2 className="mb-10 text-center font-display text-3xl font-bold">Common Questions</h2><div className="space-y-6">{FAQS.map(([question, answer]) => <div key={question} className="rounded-2xl border border-mercury p-6 transition-colors hover:border-plasma"><h3 className="mb-2 font-display text-lg font-bold">{question}</h3><p className="leading-relaxed text-ghost">{answer}</p></div>)}</div></div></section>
     </div>
   );
 }

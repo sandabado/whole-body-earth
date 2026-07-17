@@ -1,0 +1,13 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getUpcomingEvents, type UpcomingEvent } from "@/lib/upcoming-events";
+
+export function EventDrawer() {
+  const pathname = usePathname(); const [open, setOpen] = useState(false); const [events, setEvents] = useState<UpcomingEvent[]>([]);
+  useEffect(() => { let active = true; const load = async () => { const result = await getUpcomingEvents(3); if (active) setEvents(result); }; load(); const id = window.setInterval(load, 60_000); return () => { active = false; window.clearInterval(id); }; }, []);
+  if (pathname === "/") return null;
+  return <div className="fixed left-0 top-1/2 z-50 -translate-y-1/2"><button type="button" onClick={() => setOpen(true)} className="writing-mode-vertical border border-water/60 bg-void/80 px-3 py-4 font-mono text-[10px] uppercase tracking-[.15em] text-water shadow-[0_10px_30px_rgba(0,0,0,.35)] backdrop-blur-md" aria-label="Open events drawer">Events · {events.length}</button><aside aria-label="Upcoming events" className={`absolute left-0 top-1/2 w-[min(22rem,calc(100vw-2rem))] -translate-y-1/2 border border-water/65 bg-void/95 p-5 shadow-[0_24px_70px_rgba(0,0,0,.48)] backdrop-blur-xl transition duration-300 ${open ? "translate-x-0 opacity-100" : "-translate-x-[110%] opacity-0 pointer-events-none"}`}><div className="flex items-center justify-between"><p className="font-mono text-[10px] uppercase tracking-[.15em] text-water">Upcoming events</p><button type="button" onClick={() => setOpen(false)} className="font-mono text-lg text-ghost" aria-label="Close events drawer">×</button></div><div className="mt-5 divide-y divide-mercury">{events.map((event) => <Link key={event.id} href="/calendar" onClick={() => setOpen(false)} className="grid grid-cols-[3.5rem_1fr] gap-3 py-4"><span className="font-mono text-[10px] text-water">{new Intl.DateTimeFormat("en", { month: "short", day: "2-digit" }).format(new Date(event.event_date))}</span><span><span className="block font-display text-lg font-medium text-bone">{event.title}</span><span className="mt-1 block text-xs text-ghost">{event.location ?? "Whole Body Earth"} · {event.pillar}</span></span></Link>)}</div><div className="mt-5 grid gap-3"><Link href="/calendar" onClick={() => setOpen(false)} className="border border-water px-4 py-3 text-center font-mono text-[10px] uppercase tracking-[.12em] text-water">View all events →</Link><Link href="/calendar#scheduling" onClick={() => setOpen(false)} className="font-mono text-[10px] uppercase tracking-[.12em] text-bone/70">Book a private session →</Link></div></aside></div>;
+}

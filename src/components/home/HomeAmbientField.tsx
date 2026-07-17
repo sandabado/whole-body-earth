@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 
+const TOP_FIELD_COLOR = "#635985";
+
 const AMBIENT_SECTIONS = [
-  { id: "hero", color: "#050505" },
-  { id: "five-bodies", color: "#d4af37" },
+  { id: "hero", color: TOP_FIELD_COLOR },
+  { id: "five-bodies", color: TOP_FIELD_COLOR },
   { id: "presence", color: "#d16b45" },
   { id: "press", color: "#d4af37" },
   { id: "studios", color: "#2ba8a0" },

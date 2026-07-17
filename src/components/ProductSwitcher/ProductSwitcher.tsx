@@ -32,7 +32,7 @@ export default function ProductSwitcher() {
         <button
           type="button"
           onClick={() => setIsOpen((open) => !open)}
-          className={`flex items-center gap-1 font-display text-sm font-semibold uppercase tracking-wider transition-colors focus:outline-none sm:text-base ${isEarthPortal ? "text-bone hover:text-ghost" : currentPillar.accent} ${isGuardianPillar ? "hover:text-guardian" : isFoundationPillar ? "hover:text-earth" : isPresencePillar ? "hover:text-fire" : isPressPillar ? "hover:text-press" : "hover:text-water"}`}
+          className="flex items-center gap-1 font-display text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:text-bone focus:outline-none sm:text-base"
           aria-haspopup="dialog"
           aria-expanded={isOpen}
         >

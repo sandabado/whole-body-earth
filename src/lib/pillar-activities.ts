@@ -13,7 +13,7 @@ export type PillarActivity = {
 };
 
 export const DEFAULT_PILLAR_ACTIVITIES: PillarActivity[] = [
-  { id: "presence-next-circle", pillar: "presence", title: "Next gathering", kicker: "Circle activity", summary: "Circles, retreats, and shared practice for the body that gathers.", href: "/calendar", cta_label: "View calendar", starts_at: null },
+  { id: "presence-next-circle", pillar: "presence", title: "Next gathering", kicker: "Circle activity", summary: "Circles, retreats, and shared practice for the body that gathers.", href: "/events", cta_label: "View calendar", starts_at: null },
   { id: "press-whole-body-series", pillar: "press", title: "The Whole Body Series", kicker: "Reader activity", summary: "Five volumes, field manuals, and permanent reading paths for the work.", href: "/library", cta_label: "Open library", starts_at: null },
   { id: "studios-infinity-love", pillar: "studios", title: "∞ Love", kicker: "Release activity", summary: "Sandābādo’s debut is moving through the archive: music, film, and signal.", href: "/media", cta_label: "Enter media", starts_at: null },
   { id: "foundation-garden-field", pillar: "foundation", title: "Garden field", kicker: "Field activity", summary: "The Tetrahedron Garden is growing toward its next phase in Morongo Valley.", href: "/pillars/foundation/garden", cta_label: "Explore garden", starts_at: null },

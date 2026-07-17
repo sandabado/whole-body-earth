@@ -12,7 +12,7 @@ import { PillarJourneyMap } from "@/components/layout/PillarJourneyMap";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { InfinityLoveRelease } from "@/components/studios/InfinityLoveRelease";
+import { PillarHeroMedia } from "@/components/home/PillarHeroMedia";
 import { MEDIA_ATLAS } from "@/lib/media-atlas";
 import { STUDIO_MUSIC_CATALOG } from "@/lib/music-catalog";
 
@@ -97,7 +97,7 @@ const elements = [
 export default function StudiosPage() {
   return (
       <main className="relative z-10 overflow-hidden">
-        <section className="border-b border-mercury px-6 pt-14 pb-20 md:pt-20 md:pb-28">
+        <section id="pillar-hero" className="pillar-hero border-b border-mercury px-6">
           <div className="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
             <div>
               <Badge variant="success" pulse>
@@ -125,7 +125,7 @@ export default function StudiosPage() {
                 </Button>
               </div>
             </div>
-            <InfinityLoveRelease variant="studios" />
+            <PillarHeroMedia pillarId="studios" />
           </div>
         </section>
         <section className="px-6 py-16 md:py-20">

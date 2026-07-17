@@ -28,10 +28,6 @@
     padding: 0;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     background-color: var(--void);
     color: var(--bone);
@@ -57,10 +53,36 @@
     font-family: inherit;
   }
 
+  :where(button, input, select, textarea) {
+    background-clip: padding-box;
+    border-radius: var(--radius-control);
+  }
+
+  /* Most page-level panels use Tailwind's bare `border` utility. Give that
+     shared surface pattern a consistent soft edge while preserving dividers,
+     rules, and intentionally geometric decorative marks. */
+  :where([class~="border"]:not([aria-hidden="true"])) {
+    background-clip: padding-box;
+    border-radius: var(--radius-surface);
+  }
+
   :focus-visible {
     outline: 2px solid var(--water);
     outline-offset: 3px;
   }
+}
+
+.page-transition {
+  animation: page-fade-in 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.home-portal > section[id] {
+  scroll-margin: 0;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes marquee {
@@ -80,6 +102,127 @@
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+.reading-engine-loader {
+  align-items: center;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--press), transparent 88%), transparent 48%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 25.25rem;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.reading-engine-orbit {
+  border: 1px solid color-mix(in srgb, var(--press), transparent 62%);
+  border-radius: 50%;
+  height: 15.5rem;
+  position: absolute;
+  transform: rotateX(68deg);
+  width: 15.5rem;
+}
+
+.reading-engine-orbit::before,
+.reading-engine-orbit::after {
+  border: 1px solid color-mix(in srgb, var(--guardian), transparent 72%);
+  border-radius: 50%;
+  content: "";
+  inset: 1.5rem;
+  position: absolute;
+}
+
+.reading-engine-orbit::before { transform: rotate(60deg); }
+.reading-engine-orbit::after { transform: rotate(-60deg); }
+
+.reading-engine-solids {
+  height: 12.5rem;
+  position: relative;
+  width: 12.5rem;
+}
+
+.reading-engine-solid {
+  animation: reading-solid-cycle 4s cubic-bezier(.45, 0, .55, 1) infinite;
+  fill: none;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: visible;
+  position: absolute;
+ stroke: var(--press);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.25;
+  top: 0;
+  transform-origin: center;
+  width: 100%;
+}
+
+.reading-engine-solid path:last-child { stroke: color-mix(in srgb, var(--bone), var(--press) 32%); }
+
+.reading-engine-copy { position: relative; z-index: 1; }
+
+.reading-engine-label {
+  animation: reading-label-cycle 4s cubic-bezier(.45, 0, .55, 1) infinite;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+@keyframes reading-solid-cycle {
+  0%, 7% { opacity: 0; transform: rotate(-30deg) scale(.72); }
+  13%, 28% { opacity: .94; transform: rotate(0deg) scale(1); }
+  35%, 100% { opacity: 0; transform: rotate(34deg) scale(1.2); }
+}
+
+@keyframes reading-label-cycle {
+  0%, 8% { opacity: 0; transform: translateY(.4rem); }
+  14%, 28% { opacity: 1; transform: translateY(0); }
+  35%, 100% { opacity: 0; transform: translateY(-.4rem); }
+}
+
+.reading-engine-solid,
+.reading-engine-label { animation-delay: calc(var(--solid-index) * .8s); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-engine-solid,
+  .reading-engine-label { animation: none; }
+  .reading-engine-solid:first-child,
+  .reading-engine-label:first-child { opacity: 1; }
+}
+
+.reading-dodecahedron-spin,
+.reading-dodecahedron-counterspin {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.reading-dodecahedron-spin {
+  animation: reading-dodecahedron-spin 36s linear infinite;
+}
+
+.reading-dodecahedron-counterspin {
+  animation: reading-dodecahedron-counterspin 24s linear infinite;
+}
+
+@keyframes reading-dodecahedron-spin {
+  0% { transform: rotate(0deg) scale(1.02); }
+  50% { transform: rotate(180deg) scale(1.06); }
+  100% { transform: rotate(360deg) scale(1.02); }
+}
+
+@keyframes reading-dodecahedron-counterspin {
+  0% { transform: rotate(0deg) scale(.9); opacity: .65; }
+  50% { transform: rotate(-180deg) scale(1.08); opacity: 1; }
+  100% { transform: rotate(-360deg) scale(.9); opacity: .65; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-dodecahedron-spin,
+  .reading-dodecahedron-counterspin { animation: none; }
 }
 
 .announcement-fade {
@@ -104,6 +247,29 @@
   animation: live-shelf-earth-flow 16s ease-in-out infinite;
   background-position: 0% 50%;
   background-size: 190% 190% !important;
+}
+
+.whole-body-passport-cta {
+  background: linear-gradient(105deg, #ff6b6b 0%, #f6c453 18%, #7edc84 38%, #51c7e8 57%, #8f5bff 77%, #ff78c4 100%);
+  background-clip: padding-box;
+  background-size: 180% 180%;
+  border-radius: var(--radius-control);
+  box-shadow: 0 0 32px rgba(126, 220, 132, 0.28), 0 0 44px rgba(143, 91, 255, 0.18);
+  overflow: clip;
+  transition: filter 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  animation: whole-body-passport-spectrum 10s ease-in-out infinite;
+}
+
+.whole-body-passport-cta:hover,
+.whole-body-passport-cta:focus-visible {
+  filter: saturate(1.14) brightness(1.07);
+  box-shadow: 0 0 38px rgba(126, 220, 132, 0.42), 0 0 58px rgba(143, 91, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+@keyframes whole-body-passport-spectrum {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 @keyframes live-shelf-earth-flow {
@@ -464,13 +630,56 @@
 
 .home-ambient-field {
   background:
-    radial-gradient(ellipse at 74% 49%, color-mix(in srgb, var(--ambient-color), transparent 70%) 0%, color-mix(in srgb, var(--ambient-color), transparent 90%) 42%, transparent 72%),
-    radial-gradient(ellipse at 50% 50%, rgba(5, 5, 5, .88) 0%, rgba(5, 5, 5, .67) 48%, rgba(5, 5, 5, .18) 80%, transparent 100%);
+    radial-gradient(ellipse at 74% 49%, color-mix(in srgb, var(--ambient-color), transparent 62%) 0%, color-mix(in srgb, var(--ambient-color), transparent 88%) 42%, transparent 72%),
+    radial-gradient(ellipse at 50% 50%, rgba(3, 3, 7, .76) 0%, rgba(3, 3, 7, .54) 48%, rgba(3, 3, 7, .12) 80%, transparent 100%);
   inset: 0;
   pointer-events: none;
   position: fixed;
   transition: background 1000ms ease;
   z-index: 0;
+}
+
+.home-top-field-aura {
+  background:
+    radial-gradient(ellipse 62% 62% at 50% 48%, transparent 0%, rgba(5, 5, 9, .05) 42%, rgba(5, 5, 9, .48) 100%),
+    linear-gradient(90deg, rgba(5, 5, 9, .45) 0%, transparent 28%, transparent 72%, rgba(5, 5, 9, .45) 100%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.home-section-veil {
+  background: rgba(0, 0, 0, .42);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-hero-copy {
+  text-shadow: 0 3px 28px rgba(0, 0, 0, .92), 0 1px 4px rgba(0, 0, 0, .96);
+}
+
+.home-platonic-canvas canvas {
+  filter: saturate(1.18) contrast(1.12);
+}
+
+/* One outer measure for every pillar landing page and journey subpage. */
+.pillar-route-shell {
+  --pillar-content-width: 75rem;
+}
+
+.pillar-hero {
+  align-items: center;
+  display: grid;
+  min-height: calc(100svh - 7rem);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+
+.pillar-route-shell > main > div.mx-auto[class*="max-w-"],
+.pillar-route-shell > div > div.mx-auto[class*="max-w-"],
+.pillar-route-shell > main > section > div.mx-auto[class*="max-w-"],
+.pillar-route-shell > div > section > div.mx-auto[class*="max-w-"] {
+  max-width: var(--pillar-content-width);
 }
 
 .home-star {
@@ -509,23 +718,35 @@
 .home-portal > section {
   align-items: center;
   display: flex;
-  min-height: calc(100svh - 2.75rem);
-  scroll-margin-top: 2.75rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  min-height: auto;
+  scroll-margin: 0;
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
   z-index: 1;
 }
 
 html:has(.home-portal) {
-  scroll-snap-type: y proximity;
+  scroll-snap-type: none;
 }
 
-.home-portal > section > * {
+@media (min-width: 1024px) {
+  .home-portal > section {
+    min-height: calc(100svh - 2.75rem);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  html:has(.home-portal) {
+    scroll-snap-type: y proximity;
+  }
+}
+
+.home-portal > section > :not([aria-hidden="true"]) {
   width: 100%;
 }
 
 @supports (animation-timeline: view()) {
-  .home-portal > section > * {
+  .home-portal > section > :not([aria-hidden="true"]) {
     animation: portal-section-reveal linear both;
     animation-range: entry 8% cover 34%;
     animation-timeline: view();
@@ -567,7 +788,7 @@ html:has(.home-portal) {
   color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: earth-gradient-flow 5s linear infinite;
+  animation: earth-gradient-flow 8s ease-in-out infinite alternate;
   filter: drop-shadow(0 0 7px rgba(126, 220, 132, 0.25));
 }
 
@@ -578,7 +799,7 @@ html:has(.home-portal) {
   color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: earth-gradient-flow 5s linear infinite;
+  animation: earth-gradient-flow 8s ease-in-out infinite alternate;
   filter: drop-shadow(0 0 7px rgba(126, 220, 132, 0.18));
 }
 
@@ -645,6 +866,8 @@ html:has(.home-portal) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page-transition { animation: none; }
+
   .animate-marquee {
     animation: none;
   }
@@ -662,7 +885,7 @@ html:has(.home-portal) {
 
   .pulse-dot { animation: none; }
 
-  .home-portal > section > * { animation: none; }
+  .home-portal > section > :not([aria-hidden="true"]) { animation: none; }
 
   .footer-constellation-link {
     transition: none;

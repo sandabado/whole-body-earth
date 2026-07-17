@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postinstall": "prisma generate",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "stripe:sync-consultations": "node --env-file=.env.local scripts/sync-consultation-products.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

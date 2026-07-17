@@ -37,7 +37,7 @@ export default function AppTile({ app, index }: AppTileProps) {
       >
         <span className={`flex h-11 w-11 shrink-0 items-center justify-center border font-display text-2xl ${isLocked ? "border-mercury" : ""}`} style={isLocked ? undefined : { borderColor: `${app.brandColor}99`, color: app.brandColor }} aria-hidden="true">{app.icon}</span>
         <span className="min-w-0 flex-1">
-          <span className="block font-display text-sm font-semibold uppercase tracking-wide sm:text-base">{app.name}</span>
+          <span className="block font-display text-sm font-semibold uppercase tracking-wide text-bone sm:text-base">{app.name}</span>
           <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.15em] text-ghost">{app.element}</span>
         </span>
         <span className={`shrink-0 font-mono text-[10px] uppercase tracking-[0.13em] ${isHere ? "" : "text-ghost"}`} style={isLocked ? undefined : { color: isHere ? app.brandColor : undefined }}>

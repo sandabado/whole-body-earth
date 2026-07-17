@@ -50,7 +50,7 @@ export default function AccountMenu() {
   };
 
   return <div ref={menuRef} className="relative">
-    <button type="button" onClick={() => setOpen((current) => !current)} className="account-avatar group flex h-8 w-8 items-center justify-center rounded-full border border-mercury transition-all hover:border-bone focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bone" aria-label="Open account menu" aria-haspopup="menu" aria-expanded={open}>
+    <button type="button" onClick={() => setOpen((current) => !current)} className="account-avatar group flex h-11 w-11 items-center justify-center rounded-full border border-mercury transition-all hover:border-bone focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bone md:h-8 md:w-8" aria-label="Open account menu" aria-haspopup="menu" aria-expanded={open}>
       {user ? <span className="font-mono text-[10px] font-medium text-bone">{user.initials}</span> : <svg viewBox="0 0 24 24" className="h-4 w-4 text-bone" aria-hidden="true"><circle cx="12" cy="8" r="3.25" fill="currentColor" /><path d="M5.5 20c.7-3.65 2.85-5.5 6.5-5.5s5.8 1.85 6.5 5.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>}
     </button>
     {open && <div role="menu" aria-label="Account access" className="absolute top-[calc(100%+0.55rem)] right-0 z-[110] w-72 border border-mercury bg-void/98 p-2 shadow-[0_18px_50px_rgba(0,0,0,.48)] backdrop-blur-md">
